@@ -6,7 +6,6 @@ import bgImage from '../../public/images/home-page-bg.jpg';
 import Icon from '../../public/favicon.ico';
 
 const Layout = ({ header, children }) => {
-
 	const {
 		title,
 		description,

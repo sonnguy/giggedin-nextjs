@@ -33,7 +33,6 @@ const CampaignDetail = ({ router }) => {
   useEffect(() => {
     Mixpanel.pageView("View_Exp_Page");
     GA.pageView();
-    console.log(router);
     const { slug } = router.query;
     const id = slug.split('-').pop();
     getCampaignFn(id);
