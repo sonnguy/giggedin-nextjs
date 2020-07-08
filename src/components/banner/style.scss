@@ -1,0 +1,221 @@
+.banner {
+    position: relative;
+    padding-bottom: 80px;
+    &__left-side {
+        &__first {
+            color: rgba(255, 74, 50, 1);
+            border-top: 4px solid rgba(255, 255, 255, 1);
+            display: inline-block;
+            padding-top: 12px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        &__brand {
+            color: rgba(255, 255, 255, 1);
+            font-size: 40px;
+            font-weight: 900;
+        }
+        &__des {
+            color: rgba(255, 255, 255, 1);
+            font-size: 16px;
+            font-style: italic;
+            margin-right: 15px;
+        }
+        &__actions {
+            .banner-action-btn {
+                margin-right: 30px;
+                border-radius: 9999px;
+                font-weight: 600;
+            }
+        }
+        &__social {
+            .social-item {
+                margin-right: 20px;
+            }
+        }
+    }
+    &__right-side {
+        &__info {
+            background-color: #fff;
+            &__image {
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                height: 200px;
+            }
+            &__body {
+                &__view-claps-info-btn {
+                    border-radius: 9999px;
+                    font-weight: 600;
+                    background-color: #ff4a32;
+                    border: solid 1px #ff4a32;
+                    color: #fff;
+                    font-size: 18px;
+                }
+            }
+            &__footer {
+                border-top: solid 1px #ddd;
+                .footer-close-text {
+                    font-size: 13px;
+                    font-weight: 600;
+                }
+                .footer-close-time {
+                    &__item {
+                        align-items: flex-end;
+                        .big-number {
+                            font-size: 30px;
+                            font-weight: 600;
+                        }
+                        .small-number {
+                            margin-bottom: 5px;
+                            margin-left: 2px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .carousel-indicators {
+        bottom: -50px;
+    }
+
+    //**********************//
+
+    .banner-breadcumb {
+        display: flex;
+        &__item {
+            color: #ff4a32;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 12px;
+            &.active {
+                color: #fff;
+            }
+        }
+    }
+    .banner-title {
+        &__artist-name {
+            color: #ff4a32;
+            text-transform: uppercase;
+            font-weight: bolder;
+        }
+        &__artist-banner-text {
+            color: #fff;
+            font-weight: 600;
+        }
+        &__artist-des {
+            color: #fff;
+            font-weight: 600;
+        }
+    }
+    .banner-artist-image {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        height: 420px;
+    }
+    .banner-event-info {
+        background-color: #fff;
+        height: 420px;
+        .event-spots {
+            &__number {
+                color: #ff4a32;
+                font-weight: bolder;
+                font-size: 40px;
+            }
+            &__text {
+                font-weight: 600;
+                font-size: 13px;
+            }
+        }
+        &__claim-btn {
+            border-radius: 4px;
+            font-weight: 600;
+            background-color: #ff4a32;
+            border: solid 1px #ff4a32;
+            color: #fff;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .remind_and_share-btn {
+            border-radius: 4px;
+            border: solid 1px #ffdad7;
+            color: #333;
+            font-weight: 600;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            &:hover {
+                background-color: #ff4a32;
+                border: solid 1px #ff4a32;
+                color: #fff;
+                .svg-inline--fa {
+                    color: #fff !important;
+                }
+            }
+            .svg-inline--fa {
+                color: #ff4a32;
+            }
+        }
+        .remind-block {
+            position: relative;
+            flex: 3;
+            .remind-icon {
+                position: absolute;
+                top: -3px;
+                left: 20px;
+            }
+        }
+        .share-block {
+            margin-left: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        &__price {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        &__spot {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .time-close-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #797979;
+        }
+    }
+    .banner-home-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .banner-home-text {
+        font-size: 50px;
+        color: #fff;
+        line-height: 1.28;
+        letter-spacing: normal;
+        font-weight: 200;
+    }
+    .banner-home-text-bolder {
+        font-weight: 800;
+        position: relative;
+        padding-bottom: 5px;
+    }
+
+    .banner-home-arrow-img {
+        cursor: pointer;
+    }
+}
+.banner-home {
+    min-height: calc(100vh - 108px) !important;
+}
+
+.about-us-title {
+    position: relative;
+    font-size: 40px;
+    font-weight: bolder;
+    color: #fff;
+}

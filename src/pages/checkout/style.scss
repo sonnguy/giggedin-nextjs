@@ -1,0 +1,217 @@
+.checkout-reward-container {
+  border-right: solid 1px #ffdad7;
+  @media (max-width: 768px) {
+    border-right: none !important;
+  }
+  .checkout-header {
+    &__artist-name {
+      color: #ff4a32;
+      font-weight: bolder;
+      font-size: 40px;
+    }
+    &__artist-banner-text {
+      color: #333;
+    }
+  }
+
+  .checkout-body {
+    &__reward-item {
+      position: relative;
+      border-radius: 4px;
+      margin-bottom: 25px;
+
+      &__image {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border: solid 1px #ffdad7;
+        border-right: none;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          max-width: 90%;
+        }
+        @media (max-width: 576px) {
+          border-right: solid 1px #ffdad7 !important;
+          border-bottom: none !important;
+        }
+      }
+      &__info {
+        background-color: #fff7f6;
+        border: solid 1px #ffdad7;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        position: relative;
+        .reward-item-main-info {
+          .reward-name {
+            font-weight: bolder;
+            font-size: 20px;
+            color: #333;
+          }
+          .reward-des {
+            font-size: 13px;
+            color: #333;
+          }
+          .reward-actions {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+
+            .svg-inline--fa {
+              display: block;
+            }
+            &__btn {
+              display: block;
+              font-size: 12px;
+              font-weight: bolder;
+              border-radius: 4px;
+              border: solid 2px #ff4a32;
+              color: #ff4a32;
+              background-color: #fff;
+            }
+            &:hover {
+              // .reward-actions__btn {
+              //   display: block;
+              // }
+              // .svg-inline--fa {
+              //   display: none;
+              // }
+            }
+          }
+        }
+        .reward-item-includes-info {
+          .reward-includes-title {
+            font-weight: bolder;
+            font-size: 13px;
+            color: #333;
+          }
+          .reward-includes-sub-text {
+            font-size: 13px;
+            color: #333;
+          }
+          .reward-includes-spot-left {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ff4a32;
+          }
+        }
+      }
+      &__hover-actions {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 74, 50, 0.88);
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 300ms ease-in-out;
+        &:hover {
+          opacity: 1;
+        }
+        &__btn {
+          border-radius: 4px;
+          border: solid 2px #fff;
+          color: #fff;
+          font-weight: 600;
+          &:hover {
+            background-color: #fff;
+            color: #ff4a32;
+            border: solid 2px #fff;
+          }
+        }
+      }
+
+      &.selected {
+        .checkout-body__reward-item__hover-actions {
+          display: none;
+        }
+        .checkout-body__reward-item__info {
+          background-color: #ff4a32;
+          border: solid 1px #ff4a32;
+          .reward-item-main-info {
+            .reward-name {
+              color: #fff;
+            }
+            .reward-des {
+              color: #fff;
+            }
+          }
+        }
+        .reward-item-includes-info {
+          .reward-includes-title {
+            color: #fff;
+          }
+          .reward-includes-sub-text {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+.checkout-summary {
+  &__container {
+    position: sticky;
+    top: 15px;
+  }
+  &__item {
+    .summary-item-text {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .summary-item-price {
+      font-size: 13px;
+      font-weight: bolder;
+    }
+    .total-text {
+      font-size: 15px;
+      font-weight: bolder;
+    }
+    .total-price {
+      font-size: 15px;
+    }
+  }
+}
+
+.checkout-body__title {
+  font-size: 22px;
+  font-weight: 600;
+}
+.price_item {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  font-weight: bolder;
+  color: #ff4a32;
+}
+
+.checkout-form {
+  .already-have-account-text {
+    font-size: 13px;
+    font-weight: 600;
+    .login-link {
+      color: #ff4a32;
+      cursor: pointer;
+    }
+  }
+  .custom-checkbox {
+    label {
+      font-size: 13px;
+    }
+  }
+}
+.back-button-span {
+  color: #ff4a32;
+  font-weight: bolder;
+}
+.back-button-container {
+  cursor: pointer;
+}

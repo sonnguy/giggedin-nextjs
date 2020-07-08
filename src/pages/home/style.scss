@@ -1,0 +1,79 @@
+.home-page {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    &__support-act {
+        border: 10px solid #fff;
+
+        &__artist-name {
+            font-size: 40px;
+            line-height: 44px;
+            color: #fff;
+            font-weight: 300;
+        }
+        &__campaign-name {
+            font-size: 40px;
+            line-height: 44px;
+            color: #fff;
+            font-weight: bolder;
+        }
+        &__campaign-des {
+            font-size: 14px;
+            color: #fff;
+            line-height: 18px;
+            font-weight: 600;
+        }
+    }
+    .campaign-spots {
+        &__number {
+            color: #fff;
+            font-weight: bolder;
+            font-size: 40px;
+        }
+        &__text {
+            margin-left: 10px;
+            color: #fff;
+            font-weight: 100;
+            font-size: 40px;
+        }
+    }
+
+    .support-act-img {
+        position: absolute;
+        top: -60px;
+        left: 40px;
+    }
+
+    .time-close-text {
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .claim-spot-now {
+        padding-bottom: 5px;
+        position: relative;
+        font-size: 20px;
+        font-weight: bolder;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .start-campaign {
+        flex: 1;
+        height: 100%;
+        align-items: flex-end;
+
+        &__content__des {
+            color: #fff;
+            font-size: 20px;
+        }
+        &__content__text {
+            cursor: pointer;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+    }
+}

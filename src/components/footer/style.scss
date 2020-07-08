@@ -1,0 +1,31 @@
+.page-footer {
+    &__item__sub-text {
+        display: block;
+        font-size: 13px;
+        color: #ff4a32;
+        font-weight: 500;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+    .page-footer-img {
+        max-width: 100%;
+    }
+    &__social-icon,
+    &__app-icon {
+        padding: 0px 15px;
+        font-size: 25px;
+    }
+    &__app-icon__text {
+        opacity: 0.6;
+        font-size: 12px;
+        font-weight: 600;
+        color: #aaaaaa;
+        margin-top: -3px;
+    }
+    &__app__main-text {
+        font-size: 14px;
+    }
+}
+.seperate-img {
+    width: 100%;
+}

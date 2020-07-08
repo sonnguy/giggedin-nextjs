@@ -1,0 +1,27 @@
+.banner-countdown-timer {
+    &__item {
+        border-radius: 3px;
+        background-color: #f4f4f4;
+        width: 65px;
+        height: 70px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .big-number {
+            &.active {
+                color: #ff4a32;
+            }
+            font-size: 30px;
+            font-weight: bolder;
+        }
+        .small-text {
+            font-size: 13px;
+            font-weight: 600;
+        }
+    }
+    .campaign-close-text {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bolder;
+    }
+}

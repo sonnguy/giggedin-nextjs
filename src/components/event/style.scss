@@ -1,0 +1,43 @@
+.event {
+    // box-shadow: rgba(255, 74, 50, 0.1) 0px 4px 12px 0px;
+    // border-color: rgba(255, 74, 50, 0.1);
+    // border-radius: 4px;
+    .event-image {
+        &__img {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+    }
+    .event-date {
+        border-bottom: 1px solid rgba(255, 74, 50, 0.1);
+        &__day {
+            font-size: 45px;
+            font-weight: bolder;
+            line-height: normal;
+            letter-spacing: normal;
+            margin-right: 10px;
+        }
+        &__time,
+        &__month {
+            font-size: 14px;
+            font-weight: bolder;
+            line-height: normal;
+            letter-spacing: normal;
+        }
+    }
+    .event-info {
+        &__name {
+            font-size: 15px;
+            font-weight: bolder;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #ff4a32;
+        }
+        &__address {
+            font-size: 13px;
+            line-height: 1.31;
+            letter-spacing: 0.3px;
+            text-align: justify;
+        }
+    }
+}
