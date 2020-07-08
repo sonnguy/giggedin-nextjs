@@ -19,7 +19,7 @@ const Layout = ({ header, children }) => {
 		keywords: "GiggedIn Experiences",
 		siteName: 'GiggedIn',
 		url: `https://giggedin-nextjs.herokuapp.com/`,
-		image: 'https://giggedin-nextjs.herokuapp.com/static/media/home-page-bg.ced799a5.jpg',
+		image: 'https://giggedin-nextjs.herokuapp.com/_next/static/images/home-page-bg-5b6c2f41fb9a4ebeef63c53a4373a9dc.jpg',
 	};
 
 	return (
