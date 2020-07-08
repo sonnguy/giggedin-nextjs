@@ -17,12 +17,12 @@ class Confirmation extends React.Component {
 	}
 
 	getCampaigURL = (artist) => {
-		const url = `https://experience.giggedin.com/experience/${artist.handle}/${artist.id}`;
+		const url = `https://giggedin-nextjs.herokuapp.com/experience/${artist.handle}/${artist.id}`;
 		return url;
 	};
 
 	copyUrl = (artist) => {
-		const url = `https://experience.giggedin.com/experience/${artist.handle}/${artist.id}`;
+		const url = `https://giggedin-nextjs.herokuapp.com/experience/${artist.handle}/${artist.id}`;
 		let dummy = document.createElement('input'),
 			text = url;
 		document.body.appendChild(dummy);

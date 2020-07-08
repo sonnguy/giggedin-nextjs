@@ -18,8 +18,8 @@ const Layout = ({ header, children }) => {
 		description: "GiggedIn Experiences",
 		keywords: "GiggedIn Experiences",
 		siteName: 'GiggedIn',
-		url: `https://experience.giggedin.com/`,
-		image: 'https://experience.giggedin.com/static/media/home-page-bg.ced799a5.jpg',
+		url: `https://giggedin-nextjs.herokuapp.com/`,
+		image: 'https://giggedin-nextjs.herokuapp.com/static/media/home-page-bg.ced799a5.jpg',
 	};
 
 	return (

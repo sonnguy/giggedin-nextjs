@@ -25,7 +25,7 @@ ExperiencesDetailPage.getInitialProps = async ({ query }) => {
         description: experience.description,
         keywords: `${experience.name}: ${experience.headline}`,
         siteName: 'GiggedIn',
-        url: `https://experience.giggedin.com/`,
+        url: `https://giggedin-nextjs.herokuapp.com/`,
         image: getImageUrl(experience.banner),
       },
     };
