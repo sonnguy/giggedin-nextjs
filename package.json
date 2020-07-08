@@ -6,8 +6,9 @@
 	"scripts": {
 		"dev": "node server.js",
 		"build": "next build",
-		"start": "next start -p 9900",
-		"heroku-postbuild": "npm run build"
+		"start": "next start -p $PORT",
+		"heroku-postbuild": "npm run build",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.28",
