@@ -26,7 +26,7 @@ ExperiencesDetailPage.getInitialProps = async (ctx) => {
         keywords: `${experience.name}: ${experience.headline}`,
         siteName: 'GiggedIn',
         url: `https://experience.giggedin.com/`,
-        image: `https://experience.giggedin.com/${experience.banner}`,
+        image: `https://experience.giggedin.com/${experience.background}`,
       },
     };
   }
