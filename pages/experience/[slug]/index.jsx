@@ -2,6 +2,7 @@ import T from 'prop-types';
 import Layout from '../../../src/components/layout';
 import CampaignDetail from '../../../src/pages/experience'
 import { getCampaignApi } from '../../../src/api/campaignApi';
+import { getImageUrl } from '../../../src/services/imageService';
 
 const ExperiencesDetailPage = (props) => {
   return (
@@ -11,8 +12,7 @@ const ExperiencesDetailPage = (props) => {
   );
 };
 
-ExperiencesDetailPage.getInitialProps = async (ctx) => {
-  const { store, isServer, req, query } = ctx;
+ExperiencesDetailPage.getInitialProps = async ({ query }) => {
   const { slug } = query;
   const id = slug.split('-').pop();
   if (!isNaN(id)) {
@@ -26,7 +26,7 @@ ExperiencesDetailPage.getInitialProps = async (ctx) => {
         keywords: `${experience.name}: ${experience.headline}`,
         siteName: 'GiggedIn',
         url: `https://experience.giggedin.com/`,
-        image: `https://experience.giggedin.com/${experience.background}`,
+        image: getImageUrl(experience.banner),
       },
     };
   }
