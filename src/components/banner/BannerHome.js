@@ -5,8 +5,8 @@ import './style.scss';
 
 const BannerHome = () => {
 	const arrowClick = () => {
-		const bannerH = document.querySelector('.home-page').clientHeight;
-		window.scrollTo(0, bannerH + 108);
+		const bannerH = document.querySelector('.banner-home').clientHeight;
+		window.scrollTo({ top: bannerH + 108, behavior: 'smooth' });
 	};
 
 	return (

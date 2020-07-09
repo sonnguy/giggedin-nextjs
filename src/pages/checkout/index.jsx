@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import CheckOutForm from './CheckoutForm';
 import LoginRegisterForm from './LoginRegisterForm';
-import { getCampainCheckout } from '../../api/checkoutApi';
+import { getCampaignCheckout } from '../../api/checkoutApi';
 import { getImageUrl } from '../../services/imageService';
 import { Helmet } from 'react-helmet';
 import ReactHtmlParser from 'react-html-parser';
@@ -31,7 +31,7 @@ class CheckOut extends React.Component {
   };
   getCampaignCheckout = async (id) => {
     try {
-      const res = await getCampainCheckout(id);
+      const res = await getCampaignCheckout(id);
       const { data = {} } = res;
       if (data.success) {
         this.setState({

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getImageUrl } from '../../services/imageService';
 import { useEffect } from 'react';
 import FaIcon from '../../components/fontAwesomeIcon';
-import { getCampain } from '../../actions/campaignAction';
+import { getCampaign } from '../../actions/campaignAction';
 import { useState } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import Sticky from 'react-stickynode';
@@ -22,7 +22,7 @@ const CampaignDetail = ({ router }) => {
   const dispatch = useDispatch();
   const [menuActive, setNenuActive] = useState('');
 
-  const getCampaignFn = (id) => dispatch(getCampain(id));
+  const getCampaignFn = (id) => dispatch(getCampaign(id));
 
   const goToCheckout = () => {
     Mixpanel.track("Click_ClaimSpot", { campaign: campaign.id });

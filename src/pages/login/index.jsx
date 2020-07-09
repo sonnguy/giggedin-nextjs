@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import LoginForm from '../../components/loginForm';
 import Mixpanel from '../../tracking/mixpanel';
 import GA from '../../tracking/ga';
+import { withRouter } from 'next/router';
+import Router from 'next/router';
 
 class Login extends React.Component {
     componentDidMount() {
@@ -11,7 +13,7 @@ class Login extends React.Component {
     }
 
     goBack = () => {
-        this.props.history.goBack();
+        Router.back();
     }
 
     render() {
@@ -28,4 +30,4 @@ class Login extends React.Component {
 }
 
 
-export default Login;
+export default withRouter(Login);

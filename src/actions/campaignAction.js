@@ -70,7 +70,7 @@ export const getCampaignSpotPaymentedFail = (error) => {
     }
 }
 
-export const getCampains = () => {
+export const getCampaigns = () => {
     return (dispatch) => {
         dispatch(getCampaignsBegin());
         return getCampaignsApi()
@@ -91,7 +91,7 @@ export const getCampains = () => {
     };
 }
 
-export const getCampain = (id) => {
+export const getCampaign = (id) => {
     return (dispatch) => {
         dispatch(getCampaignBegin());
         return getCampaignApi(id)
@@ -112,7 +112,7 @@ export const getCampain = (id) => {
     };
 }
 
-export const getCampainSpotPaymented = (campaignId) => {
+export const getCampaignSpotPaymented = (campaignId) => {
     return (dispatch) => {
         dispatch(getCampaignSpotPaymentedBegin());
         return getCampaignSpotPaymentedApi(campaignId)

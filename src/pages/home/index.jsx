@@ -7,7 +7,7 @@ import CountDownTime from '../../components/countDownTime/CountDownTime';
 import supportact from '../../../public/images/support-act.png';
 import arrow from '../../../public/images/home-arrow-right.svg';
 import horiline from '../../../public/images/hori-line.svg';
-import { getCampain } from '../../actions/campaignAction';
+import { getCampaign } from '../../actions/campaignAction';
 import { fullDate, getSlugName } from '../../services/utilsService';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Mixpanel from '../../tracking/mixpanel';
@@ -15,13 +15,12 @@ import GA from '../../tracking/ga';
 import bgImage from '../../../public/images/home-artist-image.png';
 import Router from 'next/router';
 
-
 const Home = () => {
     const campaign = useSelector((state) => state.campaign.campaign);
 
     const dispatch = useDispatch();
 
-    const getCampaignFn = (id) => dispatch(getCampain(id));
+    const getCampaignFn = (id) => dispatch(getCampaign(id));
 
     const goToCampaign = () => {
         const slug = getSlugName(campaign.artists[0].name);

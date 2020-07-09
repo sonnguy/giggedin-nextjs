@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Campaign from '../../components/campaign/campaign';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCampains } from '../../actions/campaignAction'
+import { getCampaigns } from '../../actions/campaignAction'
 import Mixpanel from '../../tracking/mixpanel';
 import GA from '../../tracking/ga';
 import Router from 'next/router';
@@ -12,7 +12,7 @@ const Experiences = () => {
     const campaigns = useSelector((state) => state.campaign.campaigns);
     const dispatch = useDispatch();
 
-    const getExperiencesFn = () => dispatch(getCampains());
+    const getExperiencesFn = () => dispatch(getCampaigns());
 
     const goToCampaign = (campaign) => {
         const slug = getSlugName(campaign.name);
