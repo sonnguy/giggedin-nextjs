@@ -5,7 +5,6 @@ import CheckOutForm from './CheckoutForm';
 import LoginRegisterForm from './LoginRegisterForm';
 import { getCampaignCheckout } from '../../api/checkoutApi';
 import { getImageUrl } from '../../services/imageService';
-import { Helmet } from 'react-helmet';
 import ReactHtmlParser from 'react-html-parser';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Mixpanel from '../../tracking/mixpanel';
@@ -96,10 +95,6 @@ class CheckOut extends React.Component {
     const tiers = data.tiers ? data.tiers.sort((a, b) => a.price - b.price) : [];
     return (
       <Container>
-        <Helmet>
-          <meta charSet="utf-8" />
-          {data.name ? <title>{`${data.name}: ${data.headline}`}</title> : null}
-        </Helmet>
         <Row className="mt-5 pt-3">
           <Col
             xs={12}
@@ -151,7 +146,7 @@ class CheckOut extends React.Component {
             <div className="mt-3">
               {step === 2 && (
                 <CheckOutForm
-                  campaignId={id}
+                  campaign={this.state.data}
                   history={this.props.history}
                   goToLogin={this.goToLogin}
                   selectedTier={selectedTier}

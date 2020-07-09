@@ -27,7 +27,7 @@ const BannerHome = () => {
 					{/* <div className="banner-home-text">through virtual experiences</div> */}
 				</div>
 			</Container>
-			<Image onClick={arrowClick} src={arrow} className="banner-home-arrow-img py-4 mb-2" />
+			<Image onClick={arrowClick} src={arrow} className="banner-home-arrow-img py-4 mb-2 animated bounce" />
 		</div>
 	);
 };

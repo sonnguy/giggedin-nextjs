@@ -79,7 +79,7 @@ class CheckOutForm extends React.Component {
 			country: country,
 			state: state
 		};
-		const id = this.props.campaignId;
+		const id = this.props.campaign.id;
 		if (this.props.user) {
 			api.defaults.headers.common['Authorization'] = `Bearer ${this.props.token}`;
 			const { email, first_name, last_name } = this.props.user;
@@ -93,7 +93,9 @@ class CheckOutForm extends React.Component {
 			const { data = {} } = res;
 			if (data.success) {
 				let path = `/confirmation/[id]`;
-				Router.push({ pathname: path }, `/confirmation/${campaign.id}`);
+				const { artists } = this.props.campaign;
+				const artist = artists.length > 0 ? artists[0] : { id: 0 }
+				Router.push({ pathname: path }, `/confirmation/${artist.id}`);
 			} else {
 				toast.error(data.message, {
 					containerId: 'Toast'
