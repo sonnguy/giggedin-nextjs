@@ -3,6 +3,7 @@ import Layout from '../../../src/components/layout';
 import CampaignDetail from '../../../src/pages/experience'
 import { getCampaignApi } from '../../../src/api/campaignApi';
 import { getImageUrl } from '../../../src/services/imageService';
+import { getSlugName } from '../../../src/services/utilsService';
 
 const ExperiencesDetailPage = (props) => {
   return (
@@ -18,14 +19,14 @@ ExperiencesDetailPage.getInitialProps = async ({ query }) => {
   if (!isNaN(id)) {
     const res = await getCampaignApi(id);
     const experience = res.data.campaign;
-
+    const slug = getSlugName(experience.name);
     return {
       header: {
         title: `${experience.name}: ${experience.headline}`,
         description: experience.description,
         keywords: `${experience.name}: ${experience.headline}`,
         siteName: 'GiggedIn',
-        url: `https://giggedin-nextjs.herokuapp.com/`,
+        url: `https://giggedin-nextjs.herokuapp.com/experience/${slug}-${experience.id}`,
         image: getImageUrl(experience.banner),
       },
     };

@@ -89,7 +89,7 @@ const Banner = ({ router }) => {
 									<FaIcon name="faChevronRight" size={'sm'} color={'#ff4a32'} />
 								</a>
 							</Link>
-							<a className="banner-breadcumb__item ml-3">
+							<a className="banner-breadcumb__item active ml-3">
 								{campaign.name}
 							</a>
 						</div>

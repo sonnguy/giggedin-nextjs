@@ -5,24 +5,30 @@ import { getImageUrl } from '../../services/imageService';
 import FaIcon from '../../components/fontAwesomeIcon';
 import 'react-credit-cards/lib/styles.scss';
 import { Helmet } from 'react-helmet';
-import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import Mixpanel from '../../tracking/mixpanel';
 import GA from '../../tracking/ga';
+import { withRouter } from 'next/router';
 
 class Confirmation extends React.Component {
+
+	state = {
+		hostName: ''
+	}
+
 	componentDidMount() {
 		Mixpanel.pageView('View_Exp_ConfirmationPage');
 		GA.pageView();
+		this.setState({ hostName: window.location.origin })
 	}
 
 	getCampaigURL = (artist) => {
-		const url = `https://giggedin-nextjs.herokuapp.com/experience/${artist.handle}/${artist.id}`;
+		const url = `${this.state.hostName}/experience/${artist.handle}/${artist.id}`;
 		return url;
 	};
 
 	copyUrl = (artist) => {
-		const url = `https://giggedin-nextjs.herokuapp.com/experience/${artist.handle}/${artist.id}`;
+		const url = `${this.state.hostName}/experience/${artist.handle}/${artist.id}`;
 		let dummy = document.createElement('input'),
 			text = url;
 		document.body.appendChild(dummy);
@@ -98,4 +104,4 @@ class Confirmation extends React.Component {
 }
 
 
-export default Confirmation;
+export default withRouter(Confirmation);
