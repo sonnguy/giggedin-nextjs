@@ -24,7 +24,7 @@ ConfirmationPage.getInitialProps = async ({ query }) => {
             description: experience.description,
             keywords: `${experience.name}: ${experience.headline}`,
             siteName: 'GiggedIn',
-            url: `https://giggedin-nextjs.herokuapp.com/experience/${slug}-${experience.id}`,
+            url: `${process.env.REACT_APP_HOST_URL}/experience/${slug}-${experience.id}`,
             image: getImageUrl(experience.banner),
         },
     };
