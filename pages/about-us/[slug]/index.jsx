@@ -1,7 +1,6 @@
 import T from 'prop-types';
 import Layout from '../../../src/components/layout';
 import AboutUs from '../../../src/pages/about-us';
-import bgImage from '../../../public/images/home-page-bg.jpg';
 
 const AboutUsPage = (props) => {
   return (
@@ -34,7 +33,6 @@ AboutUsPage.getInitialProps = async ({ query }) => {
       title: `GiggedIn Experiences | ${getTitle()}`,
       siteName: 'GiggedIn',
       url: `${process.env.REACT_APP_HOST_URL}/about-us/${slug}`,
-      image: bgImage,
     },
   };
 

@@ -6,6 +6,7 @@ import bgImage from '../../public/images/home-page-bg.jpg';
 import Icon from '../../public/favicon.ico';
 
 const Layout = ({ header, children }) => {
+	const defaultImage = process.env.REACT_APP_HOST_URL + bgImage;
 	const {
 		title,
 		description,
@@ -18,8 +19,8 @@ const Layout = ({ header, children }) => {
 		description: "GiggedIn Experiences",
 		keywords: "GiggedIn Experiences",
 		siteName: 'GiggedIn',
-		url: `https://giggedin-nextjs.herokuapp.com`,
-		image: bgImage,
+		url: process.env.REACT_APP_HOST_URL,
+		image: defaultImage,
 	};
 
 	return (
@@ -50,11 +51,11 @@ const Layout = ({ header, children }) => {
 				<meta property="og:title" content={title} />
 				<meta property="og:description" content={description} />
 				<meta property="og:url" content={url} />
-				<meta property="og:image" content={image} />
+				<meta property="og:image" content={image || defaultImage} />
 				<meta name="twitter:title" content={title} />
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:url" content={url} />
-				<meta name="twitter:image" content={image} />
+				<meta name="twitter:image" content={image || defaultImage} />
 
 				<link rel="canonical" href={url} />
 			</Head>
