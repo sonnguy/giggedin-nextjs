@@ -16,40 +16,27 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 
-module.exports = withPlugins([[withCSS], [withSass], [image], [withBundleAnalyzer], [new UglifyJsPlugin({
-	test: /\.js($|\?)/i,
-	sourceMap: true,
-	uglifyOptions: {
-		mangle: {
-			keep_fnames: true,
-		},
-		compress: {
-			warnings: false,
-		},
-		output: {
-			beautify: false,
-		},
-	},
-}),]], {
-	compress: true,
-	webpack: (config, { dev }) => {
-		config.plugins = config.plugins || [];
-		config.plugins = [
-			...config.plugins,
-			new Dotenv({
-				path: path.join(__dirname, '.env'),
-				systemvars: true
-			})
-		];
-		config.optimization.minimizer = [];
-		config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
-
-		if (dev) {
-			config.node = {
-				fs: 'empty'
+module.exports = withPlugins([[withCSS], [withSass], [image], [withBundleAnalyzer]],
+	{
+		compress: true,
+		webpack: (config, { dev }) => {
+			config.plugins = config.plugins || [];
+			config.plugins = [
+				...config.plugins,
+				new Dotenv({
+					path: path.join(__dirname, '.env'),
+					systemvars: true
+				})
+			];
+			config.optimization.minimizer = [];
+			config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+			config.optimization.minimizer.push(new UglifyJsPlugin());
+			if (dev) {
+				config.node = {
+					fs: 'empty'
+				}
 			}
-		}
 
-		return config;
-	}
-});
+			return config;
+		}
+	});
