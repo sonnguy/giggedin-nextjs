@@ -5,6 +5,7 @@ const image = require('next-images');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 require('dotenv').config();
 
@@ -15,7 +16,21 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 
-module.exports = withPlugins([[withCSS], [withSass], [image], [withBundleAnalyzer]], {
+module.exports = withPlugins([[withCSS], [withSass], [image], [withBundleAnalyzer], [new UglifyJsPlugin({
+	test: /\.js($|\?)/i,
+	sourceMap: true,
+	uglifyOptions: {
+		mangle: {
+			keep_fnames: true,
+		},
+		compress: {
+			warnings: false,
+		},
+		output: {
+			beautify: false,
+		},
+	},
+}),]], {
 	compress: true,
 	webpack: (config, { dev }) => {
 		config.plugins = config.plugins || [];
@@ -28,6 +43,7 @@ module.exports = withPlugins([[withCSS], [withSass], [image], [withBundleAnalyze
 		];
 		config.optimization.minimizer = [];
 		config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+
 		if (dev) {
 			config.node = {
 				fs: 'empty'
