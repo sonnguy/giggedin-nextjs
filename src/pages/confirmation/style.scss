@@ -4,68 +4,6 @@
             width: 100px;
             height: 100px;
         }
-        &__support-item {
-            cursor: pointer;
-            border: 3px solid #ff4a32;
-            margin-bottom: 30px;
-            &.active,
-            &:hover {
-                background-color: #ff4a32;
-                color: #fff;
-                .select-icon {
-                    background-color: #fff;
-                }
-            }
-            &__select {
-                .select-icon {
-                    margin-top: 3px;
-                    width: 20px;
-                    height: 20px;
-                    background-color: #ff4a32;
-                    border-radius: 50%;
-                    &.active {
-                        background-color: #fff;
-                    }
-                }
-            }
-        }
-        &__action-btn {
-            background-color: #ff4a32;
-            border: solid 1px #ff4a32;
-            font-size: 14px;
-        }
-        &__input-visa {
-            &__header {
-                background-color: #ff4a32;
-                margin-bottom: 20px;
-                &__group {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 10px;
-                    .group-text {
-                        font-size: 16px;
-                        font-weight: 600;
-                        color: #fff;
-                    }
-                    .group-input {
-                        margin-left: 10px;
-                    }
-                }
-            }
-            &__body {
-                border: 3px solid #ff4a32;
-                margin-bottom: 20px;
-
-                .group-visa-type {
-                    margin-left: 15px;
-                    width: 200px;
-                }
-            }
-        }
-    }
-
-    .form-item {
-        margin-bottom: 30px;
     }
     .confirmation-social {
         .social-item {

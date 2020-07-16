@@ -1,8 +1,10 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import Link from 'next/link'
 import './style.scss';
 import { withRouter } from 'next/router';
+import bodyImage from '../../../public/images/about-us.jpg';
+import FaIcon from '../../components/fontAwesomeIcon';
 
 const AboutUs = ({ router }) => {
     const { slug } = router.query;
@@ -12,14 +14,51 @@ const AboutUs = ({ router }) => {
                 <div className="py-4">
                     {
                         slug === 'giggedin' &&
-                        <>
-                            <h4 className="about-us-page__title">{'At GiggedIn, we believe in 3 things:'}</h4>
-                            <p className="about-us-page__des">{`1. More shared experiences = more fulfilment in life`}</p>
-                            <p className="about-us-page__des">{`2. Supporting artists and our industry`}</p>
-                            <p className="about-us-page__des">{`3. Giving back to the community`}</p>
-                            <p className="about-us-page__des">{`Over the past few years, GiggedIn has grown to become the #1 subscription service for live music and entertainment loved by thousands of Aussies until it all came to a screeching halt in the historic events of March 2020. `}</p>
-                            <p className="about-us-page__des">{`With all that's happened, we've turned our attention to using technology to bring artists and fans closer together both at home and across borders.`}</p>
-                        </>
+                        <div className="about-giggedin-body">
+                            <Row>
+                                <Col xs={12} className="d-flex justify-content-center mt-4">
+                                    <div className="about-us-image background-image-responsive" style={{
+                                        backgroundImage: `url('${bodyImage}')`
+                                    }}></div>
+                                </Col>
+                            </Row>
+                            <Row className="mt-5">
+                                <Col xs={12} sm={6}>
+                                    <div className="about-giggedin-header mb-3">
+                                        <h3 className="about-giggedin-header__text">At <span className="about-giggedin-header__giggedin-name">GiggedIn</span>, we</h3>
+                                        <h3 className="about-giggedin-header__text">{'believe in 3 things:'}</h3>
+                                    </div>
+                                    <div className="about-giggedin-body first-block-item">
+                                        <FaIcon
+                                            name="faArrowRight"
+                                            size={'sm'}
+                                            color={'#333'}
+                                        />
+                                        <span className="first-block-item__text">{'More shared experiences = More fulfilment in life'}</span>
+                                    </div>
+                                    <div className="about-giggedin-body first-block-item ">
+                                        <FaIcon
+                                            name="faArrowRight"
+                                            size={'sm'}
+                                            color={'#333'}
+                                        />
+                                        <span className="first-block-item__text">{'Supporting artists and our industry'}</span>
+                                    </div>
+                                    <div className="about-giggedin-body first-block-item">
+                                        <FaIcon
+                                            name="faArrowRight"
+                                            size={'sm'}
+                                            color={'#333'}
+                                        />
+                                        <span className="first-block-item__text">{'Giving back to the community'}</span>
+                                    </div>
+                                </Col>
+                                <Col xs={12} sm={6}>
+                                    <div className="mb-4 next-block-item__text-b">{`Over the past few years, GiggedIn has grown to become the #1 subscription service for live music and entertainment loved by thousands of Aussies until it all came to a screeching halt in the historic events of March 2020.`}</div>
+                                    <div className="next-block-item__text-b">{`With all that's happened, we've turned our attention to using technology to bring artists and fans closer together both at home and across borders.`}</div>
+                                </Col>
+                            </Row>
+                        </div>
                     }
                     {
                         slug === 'terms-and-conditions' &&

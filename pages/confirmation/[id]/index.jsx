@@ -8,7 +8,7 @@ import { getImageUrl } from '../../../src/services/imageService';
 const ConfirmationPage = (props) => {
     return (
         <Layout header={props.header}>
-            <Confirmation />
+            <Confirmation {...props}/>
         </Layout>
     );
 };
@@ -27,6 +27,7 @@ ConfirmationPage.getInitialProps = async ({ query }) => {
             url: `${process.env.REACT_APP_HOST_URL}/experience/${slug}-${experience.id}`,
             image: getImageUrl(experience.banner),
         },
+        experience
     };
 }
 

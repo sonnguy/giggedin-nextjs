@@ -10,12 +10,12 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Mixpanel from '../../tracking/mixpanel';
 import GA from '../../tracking/ga';
 import { withRouter } from 'next/router';
+import DOMPurify from 'isomorphic-dompurify';
 
 class CheckOut extends React.Component {
   state = {
     step: 1,
     isLogedIn: false,
-    data: {},
     selectedTier: [],
   };
 
@@ -28,22 +28,11 @@ class CheckOut extends React.Component {
       //call payment action
     }
   };
-  getCampaignCheckout = async (id) => {
-    try {
-      const res = await getCampaignCheckout(id);
-      const { data = {} } = res;
-      if (data.success) {
-        this.setState({
-          data: data.campaign,
-        });
-      }
-    } catch (error) { }
-  };
   componentDidMount() {
+    const ReactPixel = require('react-facebook-pixel').default;
+    ReactPixel.track('ViewContent', { page: 'Checkout_Page' });
     Mixpanel.pageView("View_Exp_Packages");
     GA.pageView();
-    const id = this.props.router.query.id;
-    this.getCampaignCheckout(id);
   }
 
   goToLogin = () => {
@@ -90,9 +79,9 @@ class CheckOut extends React.Component {
   };
 
   render() {
-    const { step, isLogedIn, data, selectedTier } = this.state;
-    const id = this.props.router.query.id;
-    const tiers = data.tiers ? data.tiers.sort((a, b) => a.price - b.price) : [];
+    const { step, isLogedIn, selectedTier } = this.state;
+    const { experience } = this.props; 
+    const tiers = experience.tiers ? experience.tiers.sort((a, b) => a.price - b.price) : [];
     return (
       <Container>
         <Row className="mt-5 pt-3">
@@ -104,9 +93,9 @@ class CheckOut extends React.Component {
           >
             <div className="checkout-header">
               <h2 className="checkout-header__artist-name m-0">
-                {`${data.name}: `}
+                {`${experience.name}: `}
                 <span className="checkout-header__artist-banner-text m-0 ml-2">
-                  {data.headline}
+                  {experience.headline}
                 </span>
               </h2>
             </div>
@@ -121,7 +110,7 @@ class CheckOut extends React.Component {
                   <RewardItem
                     key={index}
                     selected={true}
-                    data={item}
+                    experience={item}
                     onRemoveItem={this.onRemoveItem}
                   />
                 ))}
@@ -136,7 +125,7 @@ class CheckOut extends React.Component {
                   tiers.map((item, index) => (
                     <RewardItem
                       key={index}
-                      data={item}
+                      experience={item}
                       onAddItem={this.onAddItem}
                     />
                   ))}
@@ -146,7 +135,7 @@ class CheckOut extends React.Component {
             <div className="mt-3">
               {step === 2 && (
                 <CheckOutForm
-                  campaign={this.state.data}
+                  experience={experience}
                   history={this.props.history}
                   goToLogin={this.goToLogin}
                   selectedTier={selectedTier}
@@ -167,7 +156,7 @@ class CheckOut extends React.Component {
               <div className="separate-line"></div>
               {selectedTier.map((item) => {
                 return (
-                  <>
+                  <div key={item.id}>
                     <div className="checkout-summary__item py-3">
                       <div className="d-flex justify-content-between align-items-center w-100">
                         <div className="summary-item-text">{item.name}</div>
@@ -177,7 +166,7 @@ class CheckOut extends React.Component {
                       </div>
                     </div>
                     <div className="separate-line"></div>{' '}
-                  </>
+                  </div>
                 );
               })}
               <div className="checkout-summary__item py-3">
@@ -220,7 +209,7 @@ class CheckOut extends React.Component {
   }
 }
 
-const RewardItem = ({ selected, data, onAddItem, onRemoveItem }) => {
+const RewardItem = ({ selected, experience, onAddItem, onRemoveItem }) => {
   return (
     <Col className={`checkout-body__reward-item ${selected && 'selected'}`}>
       <Row>
@@ -229,8 +218,8 @@ const RewardItem = ({ selected, data, onAddItem, onRemoveItem }) => {
             <LazyLoadImage
               alt={'support-act'}
               effect="blur"
-              src={getImageUrl(data.tier_image)}
-              placeholderSrc={getImageUrl(data.tier_image)}
+              src={getImageUrl(experience.tier_image)}
+              placeholderSrc={getImageUrl(experience.tier_image)}
               className="p-4"
             />
           </div>
@@ -244,12 +233,12 @@ const RewardItem = ({ selected, data, onAddItem, onRemoveItem }) => {
           {!selected && (
             <div
               className={'price_item summary-item-price total-price p-4'}
-            >{`$${data.price / 100}`}</div>
+            >{`$${experience.price / 100}`}</div>
           )}
 
           <div className="reward-item-main-info w-75">
-            <div className="reward-name mb-2">{data.name}</div>
-            <div className="reward-des">{data.description}</div>
+            <div className="reward-name mb-2">{experience.name}</div>
+            <div className="reward-des">{experience.description}</div>
             {selected && (
               <div className="reward-actions p-4">
                 {/* <FaIcon name="faCheckCircle" size={'lg'} color={'#fff'} /> */}
@@ -257,7 +246,7 @@ const RewardItem = ({ selected, data, onAddItem, onRemoveItem }) => {
                   variant="outline-primary"
                   size={'sm'}
                   className="reward-actions__btn px-4"
-                  onClick={() => onRemoveItem(data)}
+                  onClick={() => onRemoveItem(experience)}
                 >
                   {'REMOVE'}
                 </Button>
@@ -271,7 +260,7 @@ const RewardItem = ({ selected, data, onAddItem, onRemoveItem }) => {
               <Row>
                 <Col xs={12}>
                   <div className="reward-includes-sub-text">
-                    <div>{ReactHtmlParser(data.tier_includes)}</div>
+                    <div>{ReactHtmlParser(DOMPurify.sanitize(experience.tier_includes))}</div>
                   </div>
                 </Col>
               </Row>
@@ -287,7 +276,7 @@ const RewardItem = ({ selected, data, onAddItem, onRemoveItem }) => {
         <Button
           variant="outline-primary"
           className="checkout-body__reward-item__hover-actions__btn px-4"
-          onClick={() => onAddItem(data)}
+          onClick={() => onAddItem(experience)}
         >
           {'Select this Package'}
         </Button>

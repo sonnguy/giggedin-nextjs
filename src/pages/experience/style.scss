@@ -12,6 +12,7 @@
     &__menu {
         position: sticky;
         top: 115px;
+        flex-wrap: wrap;
         &__item {
             position: relative;
             padding-left: 25px;
@@ -231,9 +232,6 @@
                     border-radius: 4px;
                     width: 85px;
                     height: 85px;
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    background-size: cover;
                 }
                 &__artist-name {
                     font-size: 14px;
@@ -273,9 +271,6 @@
         min-width: 62px;
         max-width: 62px;
         height: 62px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
     }
 
     &__artist-info {

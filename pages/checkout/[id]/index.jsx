@@ -8,7 +8,7 @@ import { getImageUrl } from '../../../src/services/imageService';
 const CheckOutPage = (props) => {
     return (
         <Layout header={props.header}>
-            <CheckOut />
+            <CheckOut {...props}/>
         </Layout>
     );
 };
@@ -28,6 +28,7 @@ CheckOutPage.getInitialProps = async ({ query }) => {
             url: `${process.env.REACT_APP_HOST_URL}/experience/${slug}-${experience.id}`,
             image: getImageUrl(experience.banner),
         },
+        experience
     };
 
 }

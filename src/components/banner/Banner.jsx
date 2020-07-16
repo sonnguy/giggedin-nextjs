@@ -66,6 +66,7 @@ const Banner = ({ router }) => {
 	}
 
 	const spots_unlimited = campaign.spots_unlimited === 1;
+	const tiers = campaign.tiers ? campaign.tiers.sort((a, b) => a.price - b.price) : [];
 
 	return pathname !== '/artist' &&
 		pathname.indexOf('/checkout') === -1 &&
@@ -103,7 +104,7 @@ const Banner = ({ router }) => {
 						<Row>
 							<Col xs={12} sm={12} md={7} lg={8} className="pr-md-0">
 								<div
-									className="banner-artist-image"
+									className="banner-artist-image background-image-responsive"
 									style={{
 										backgroundImage: `url(${getImageUrl(campaign.banner)})`
 									}}
@@ -136,7 +137,7 @@ const Banner = ({ router }) => {
 									>
 										<span className="banner-event-info__price">
 											{(campaign.tiers && campaign.tiers.length) > 0 &&
-												`From $${campaign.tiers[0].price / 100}`}
+												`From $${tiers[0].price / 100}`}
 										</span>
 									</div>
 									<div className="text-center mb-4 pt-2">

@@ -28,9 +28,9 @@ const Footer = () => {
 								<Link href={{ pathname: '/about-us/[slug]' }} as={'/about-us/terms-and-conditions'} >
 									<a className="page-footer__item__sub-text">Term of Service</a>
 								</Link>
-								<Link href={{ pathname: '/about-us/[slug]' }} as={'/about-us/privacy-and-policy'}  >
+								{/* <Link href={{ pathname: '/about-us/[slug]' }} as={'/about-us/privacy-and-policy'}  >
 									<a className="page-footer__item__sub-text">Privacy Policy</a>
-								</Link>
+								</Link> */}
 							</div>
 						</Col>
 						<Col

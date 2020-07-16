@@ -1,7 +1,4 @@
 .main-header {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
     position: relative;
 }
 
@@ -16,45 +13,10 @@ a {
     }
 }
 
-.hover-item-block {
-    &.max-width-250 {
-        max-width: 250px;
-    }
-    cursor: pointer;
-    box-shadow: rgba(255, 74, 50, 0.1) 0px 4px 12px 0px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(255, 74, 50, 0.1);
-    border-image: initial;
-    border-radius: 6px;
-    overflow: hidden;
-    transition: all 300ms ease-in-out;
-    .side-menu-title {
-        font-size: 18px;
-        color: #656969;
-    }
-    .side-menu-sub-title {
-        font-size: 15px;
-        color: #656969;
-    }
-    .side-menu-des {
-        font-size: 14px;
-        color: #656969;
-    }
-    .side-menu-backer {
-        font-size: 14px;
-        color: #656969;
-    }
-    &:hover {
-        background-color: #ff4a32;
-        opacity: 0.9;
-        .side-menu-title,
-        .side-menu-sub-title,
-        .side-menu-des,
-        .side-menu-backer {
-            color: #fff;
-        }
-    }
+.background-image-responsive {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .progress-bar-cus {
@@ -63,39 +25,6 @@ a {
     .bg-default {
         background-color: #ff4a32 !important;
     }
-}
-.claps-info {
-    font-size: 16px;
-    font-weight: 600;
-    font-style: italic;
-}
-.claps-info-sub-text {
-    font-size: 11px;
-    font-style: italic;
-}
-.claps-info-text {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-.claps-info-number {
-    font-size: 23px;
-    font-weight: 600;
-}
-
-.spot-price {
-    color: #ff4a32;
-    font-weight: bolder;
-}
-
-.border-radius-999 {
-    border-radius: 9999px;
-}
-
-.background-image-responsive {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
 }
 
 .default-btn {
@@ -143,9 +72,6 @@ a {
     left: 0;
     width: 100%;
     height: 5px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 }
 
 .main-header-overlay {
@@ -166,6 +92,40 @@ a {
     font-size: 13px;
     font-weight: 600;
     color: #ff4a32;
+}
+
+.about-giggedin-body {
+    .first-block-item {
+        margin-bottom: 10px;
+        &__text {
+            font-size: 16px;
+            list-style: 32px;
+            font-weight: bold;
+            margin-left: 15px;
+            color: #ff4a32;
+        }
+    }
+    .next-block-item {
+        &__text {
+            font-size: 14px;
+            list-style: 32px;
+            font-weight: bold;
+        }
+        &__text-b {
+            font-size: 16px;
+            list-style: 23px;
+            font-weight: 600;
+        }
+    }
+
+    .border-hor {
+        background-color: #ffdad7;
+        width: 1px;
+        height: 50px;
+        position: absolute;
+        left: -10px;
+        top: 10px;
+    }
 }
 
 .animated {

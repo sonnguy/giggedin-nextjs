@@ -9,5 +9,5 @@ export const fullDate = str => new Date(Number(str) * 1000).toLocaleString('en-u
 });
 
 export const getSlugName = (name) => {
-    return name.replace(/\s+/g, '-').toLowerCase();
+    return name ? name.replace(/[^A-Z0-9]+/ig, '-').toLowerCase() : '';
 }

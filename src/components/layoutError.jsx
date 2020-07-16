@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import NavbarHeader from '../components/navbar/NavbarHeader';
-import Banner from '../components/banner/Banner';
-import Footer from '../components/footer';
+import NavbarHeader from './navbar/NavbarHeader';
+import Banner from './banner/Banner';
+import Footer from './footer';
 import bgImage from '../../public/images/home-page-bg.jpg';
 import Icon from '../../public/favicon.ico';
 
-const Layout = ({ header, children }) => {
+const LayoutError = ({ header, children }) => {
 	const defaultImage = process.env.REACT_APP_HOST_URL + bgImage;
 	const {
 		title,
@@ -58,7 +58,6 @@ const Layout = ({ header, children }) => {
 				}}>
 					<div className="main-header-overlay" />
 					<NavbarHeader />
-					<Banner />
 				</div>
 			</header>
 			<div className="main-body">
@@ -70,4 +69,4 @@ const Layout = ({ header, children }) => {
 }
 
 
-export default Layout;
+export default LayoutError;

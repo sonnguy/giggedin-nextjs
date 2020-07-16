@@ -6,6 +6,18 @@
     }
     &__des {
         font-size: 14px;
-        margin-bottom: 0;
+        margin-bottom: 15px;
+    }
+    &__des-list-item {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+}
+
+.about-us-image {
+    height: 520px;
+    width: 100%;
+    @media (max-width: 768px) {
+        height: 300px;
     }
 }

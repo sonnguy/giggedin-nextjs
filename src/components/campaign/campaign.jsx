@@ -8,8 +8,8 @@ const Campaign = (props) => {
     return (
         <div onClick={onPress} className="campaign">
             <div className="campaign-image">
-                <div className="campaign__image" style={{
-                    backgroundImage: `url(${getImageUrl(campaign.background)})`
+                <div className="campaign__image background-image-responsive" style={{
+                    backgroundImage: `url(${getImageUrl(campaign.banner)})`
                 }}>
                 </div>
             </div>

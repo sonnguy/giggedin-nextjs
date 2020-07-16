@@ -1,12 +1,21 @@
-import Layout from '../src/components/layout';
-import Experience from '../src/pages/experiences'
+import Layout from "../src/components/layout";
+import Experiences from "../src/pages/experiences";
+import { getCampaignsApi } from "../src/api/campaignApi";
 
-const ExperiencesPage = () => {
+const ExperiencesPage = (props) => {
   return (
     <Layout>
-      <Experience />
+      <Experiences {...props}/>
     </Layout>
   );
+};
+
+ExperiencesPage.getInitialProps = async () => {
+  const res = await getCampaignsApi();
+  const experiences = res.data.campaigns;
+  return {
+    experiences
+  };
 };
 
 export default ExperiencesPage;

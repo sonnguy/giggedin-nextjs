@@ -1,45 +1,40 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Campaign from '../../components/campaign/campaign';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCampaigns } from '../../actions/campaignAction'
 import Mixpanel from '../../tracking/mixpanel';
 import GA from '../../tracking/ga';
 import Router from 'next/router';
 import { getSlugName } from '../../services/utilsService';
 
-const Experiences = () => {
-    const campaigns = useSelector((state) => state.campaign.campaigns);
-    const dispatch = useDispatch();
-
-    const getExperiencesFn = () => dispatch(getCampaigns());
+const Experiences = ({experiences}) => {
 
     const goToCampaign = (campaign) => {
-        const slug = getSlugName(campaign.name);
+        const slug = `${getSlugName(campaign.name)}-${getSlugName(campaign.headline)}-${campaign.id}`;
         let path = `/experience/[slug]`;
-        Router.push({ pathname: path }, `/experience/${slug}-${campaign.id}`);
+        Router.push({ pathname: path }, `/experience/${slug}`);
     }
 
     useEffect(() => {
-        Mixpanel.pageView();
+        const ReactPixel = require('react-facebook-pixel').default;
+        ReactPixel.track('ViewContent', { page: 'Experiences_Page' });
+        Mixpanel.pageView("View_Exp_Experiences");
         GA.pageView();
-        getExperiencesFn();
     }, [])
 
     return (
         <Container className="artist-list-list-content mt-4">
             <Row>
                 {
-                    campaigns && <CampaignItems campaigns={campaigns} goToCampaign={goToCampaign} />
+                    experiences && <CampaignItems experiences={experiences} goToCampaign={goToCampaign} />
                 }
             </Row>
         </Container>
     )
 }
 
-const CampaignItems = ({ campaigns, goToCampaign }) => {
+const CampaignItems = ({ experiences, goToCampaign }) => {
     return (
-        campaigns.map((campaign, index) => {
+        experiences.map((campaign, index) => {
             return (
                 <Col xs={12} sm={4} md={4} lg={3} key={index}>
                     <Campaign campaign={campaign} onPress={() => { goToCampaign(campaign) }} />

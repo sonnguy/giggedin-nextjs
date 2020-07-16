@@ -2,11 +2,11 @@
 import React from 'react';
 import './style.scss';
 import { Container, Row, Col, Button, Image } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getImageUrl } from '../../services/imageService';
 import { useEffect } from 'react';
 import FaIcon from '../../components/fontAwesomeIcon';
-import { getCampaign } from '../../actions/campaignAction';
+import { getCampaignSuccess } from '../../actions/campaignAction';
 import { useState } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import Sticky from 'react-stickynode';
@@ -16,43 +16,65 @@ import Mixpanel from '../../tracking/mixpanel';
 import GA from '../../tracking/ga';
 import { withRouter } from 'next/router';
 import Router from 'next/router';
+import DOMPurify from 'isomorphic-dompurify';
+import Head from 'next/head';
 
-const CampaignDetail = ({ router }) => {
-  const campaign = useSelector((state) => state.campaign.campaign);
+const CampaignDetail = ({ router, experience }) => {
   const dispatch = useDispatch();
   const [menuActive, setNenuActive] = useState('');
 
-  const getCampaignFn = (id) => dispatch(getCampaign(id));
+  const getCampaignSuccessFn = (campaign) => dispatch(getCampaignSuccess(campaign));
 
   const goToCheckout = () => {
-    Mixpanel.track("Click_ClaimSpot", { campaign: campaign.id });
+    Mixpanel.track("Click_ClaimSpot", { experience: experience.id });
     let path = `/checkout/[id]`;
-    Router.push({ pathname: path }, `/checkout/${campaign.id}`);
+    Router.push({ pathname: path }, `/checkout/${experience.id}`);
   };
 
   useEffect(() => {
-    Mixpanel.pageView("View_Exp_Page");
+    // const scriptGoogle = document.createElement('script');
+    // const scriptFacebook = document.createElement('script');
+
+    // scriptGoogle.src = 'https://apis.google.com/js/platform.js';
+    // scriptGoogle.async = true;
+    // scriptFacebook.src =
+    //   'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=2199795937001576';
+    // scriptFacebook.async = true;
+    // scriptFacebook.defer = true;
+    // scriptFacebook.crossorigin = 'anonymous';
+    // document.body.appendChild(scriptGoogle);
+    // document.body.appendChild(scriptFacebook);
+
+    const ReactPixel = require('react-facebook-pixel').default;
+    ReactPixel.init(
+      '1698442107043541',
+      {},
+      {
+        autoConfig: true,
+        debug: false,
+      }
+    );
+    ReactPixel.track('ViewContent', { page: 'Exp_Page' });
+    Mixpanel.pageView('View_Exp_Page');
     GA.pageView();
     const { slug } = router.query;
     const id = slug.split('-').pop();
-    getCampaignFn(id);
-  }, []);
-
-  useEffect(() => {
-    if (campaign.id) {
-      const { tabs } = campaign;
+    getCampaignSuccessFn(experience);
+    if (experience.id) {
+      const { tabs } = experience;
       if (tabs.length > 0) {
         setNenuActive(tabs[0].title.toLowerCase());
       }
     }
-  }, [campaign]);
+  }, []);
 
-  const artist = (campaign.artists && campaign.artists[0]) || {};
-  const music_enabled = campaign.music_enabled === 1;
-  const concert_enabled = campaign.concert_enabled === 1;
-  const spots_unlimited = campaign.spots_unlimited === 1;
 
-  const { tabs } = campaign;
+  const artist = (experience.artists && experience.artists[0]) || {};
+  const music_enabled = experience.music_enabled === 1;
+  const concert_enabled = experience.concert_enabled === 1;
+  const spots_unlimited = experience.spots_unlimited === 1;
+
+  const { tabs } = experience;
 
   return (
     <>
@@ -61,12 +83,14 @@ const CampaignDetail = ({ router }) => {
           <Container className="position-relative py-2">
             <Row>
               <Col xs={12} sm={12} md={8} className="d-flex mb-2 mb-md-0">
-                <div className="sticky-cta-bar__artist-image" style={{
-                  backgroundImage: `url(${getImageUrl(artist.profile_pic)})`,
-                }}>
-                </div>
+                <div
+                  className="sticky-cta-bar__artist-image background-image-responsive"
+                  style={{
+                    backgroundImage: `url(${getImageUrl(artist.profile_pic)})`,
+                  }}
+                ></div>
                 <div className="sticky-cta-bar__artist-info pl-3 d-flex flex-column justify-content-center">
-                  <div className="sticky-cta-bar__artist-info__title">{`${campaign.name}: ${campaign.headline}`}</div>
+                  <div className="sticky-cta-bar__artist-info__title">{`${experience.name}: ${experience.headline}`}</div>
                   {
                     !spots_unlimited &&
                     <div className="sticky-cta-bar__artist-info__spot-left">
@@ -74,10 +98,14 @@ const CampaignDetail = ({ router }) => {
                       {' Only 10 spots left'}
                     </div>
                   }
-
                 </div>
               </Col>
-              <Col xs={12} sm={12} md={4} className="sticky-cta-bar__action d-flex align-items-center px-4">
+              <Col
+                xs={12}
+                sm={12}
+                md={4}
+                className="sticky-cta-bar__action d-flex align-items-center px-4"
+              >
                 <Button
                   onClick={goToCheckout}
                   className="px-4 py-3 sticky-cta-bar__action__claim-btn w-100"
@@ -97,19 +125,38 @@ const CampaignDetail = ({ router }) => {
             <div className="hdiw-block p-4 mt-2">
               <h4 className="text-uppercase mb-4 mt-2 hdiw-block-title font-weight-bolder">
                 How Does This Work?
-            </h4>
-              <div className="hdiw-text">{ReactHtmlParser(campaign.how_does_it_work)}</div>
+              </h4>
+              <div className="hdiw-text">
+                {ReactHtmlParser(DOMPurify.sanitize(experience.how_does_it_work))}
+              </div>
             </div>
-            <div className="campaign-detail mt-4">
+            <div className="experience-detail mt-4">
               <Row>
                 <Col xs={12} sm={3} md={3} lg={2} className="pr-0">
                   <div
-                    id="campaign-detail-menu"
+                    id="experience-detail-menu"
                     className="campaign-detail__menu d-flex justify-content-center flex-sm-column flex-row mt-2"
                   >
-                    {
-                      tabs &&
-                      tabs.map(item => (
+                    {!tabs && (
+                      <a
+                        href="#story"
+                        className={`campaign-detail__menu__item pr-2 pr-sm-0 ${
+                          menuActive === 'story' && 'active'
+                          }`}
+                        onClick={() => {
+                          setNenuActive('story');
+                        }}
+                      >
+                        <FaIcon
+                          name="faLongArrowAltRight"
+                          size={'lg'}
+                          color={'#333'}
+                        />
+                        {'  Story'}
+                      </a>
+                    )}
+                    {tabs &&
+                      tabs.map((item) => (
                         <a
                           key={item.id}
                           href={`#${item.title.toLowerCase()}`}
@@ -124,10 +171,10 @@ const CampaignDetail = ({ router }) => {
                             name="faLongArrowAltRight"
                             size={'lg'}
                             color={'#333'}
-                          />{item.title}
+                          />
+                          {item.title}
                         </a>
-                      ))
-                    }
+                      ))}
                     <a
                       href="#charity"
                       className={`campaign-detail__menu__item pr-2 pr-sm-0 ${
@@ -141,7 +188,8 @@ const CampaignDetail = ({ router }) => {
                         name="faLongArrowAltRight"
                         size={'lg'}
                         color={'#333'}
-                      />{'  The Charity'}
+                      />
+                      {'  The Charity'}
                     </a>
                     {music_enabled && (
                       <a
@@ -158,7 +206,7 @@ const CampaignDetail = ({ router }) => {
                           size={'lg'}
                           color={'#333'}
                         />{' '}
-                      Music
+                        Music
                       </a>
                     )}
                     {concert_enabled && (
@@ -176,7 +224,7 @@ const CampaignDetail = ({ router }) => {
                           size={'lg'}
                           color={'#333'}
                         />{' '}
-                      Upcoming Shows
+                        Upcoming Shows
                       </a>
                     )}
                   </div>
@@ -185,25 +233,39 @@ const CampaignDetail = ({ router }) => {
                   <div
                     className="campaign-detail__content"
                     data-spy="scroll"
-                    data-target="#campaign-detail-menu"
+                    data-target="#experience-detail-menu"
                     data-offset="0"
                   >
-                    {
-                      tabs &&
+                    {!tabs && (
+                      <div
+                        className="campaign-detail__content__story"
+                        id={'story'}
+                      >
+                        <h4 className="content-title mb-3 font-weight-bolder">
+                          {'Story'}
+                        </h4>
+                        <div>{ReactHtmlParser(DOMPurify.sanitize(experience.story))}</div>
+                        <div className="separate-line my-4"></div>
+                      </div>
+                    )}
+                    {tabs &&
                       tabs.map((item, index) => (
-                        <div key={item.id} className="campaign-detail__content__story" id={item.title.toLowerCase()}>
+                        <div
+                          key={item.id}
+                          className="campaign-detail__content__story"
+                          id={item.title.toLowerCase()}
+                        >
                           <h4 className="content-title mb-3 font-weight-bolder">
                             {item.title.toUpperCase()}
                           </h4>
-                          <div>{ReactHtmlParser(item.content)}</div>
-                          {
-                            index !== tabs.length - 1
-                            &&
+                          <div>
+                            {ReactHtmlParser(DOMPurify.sanitize(item.content))}
+                          </div>
+                          {index !== tabs.length - 1 && (
                             <div className="separate-line my-4"></div>
-                          }
+                          )}
                         </div>
-                      ))
-                    }
+                      ))}
                     <div className="text-center mb-4 pt-2">
                       <Button
                         onClick={goToCheckout}
@@ -226,14 +288,19 @@ const CampaignDetail = ({ router }) => {
                         <div className="charity-block pb-4">
                           <div className="charity-text">
                             <span className="artist-name">
-                              {campaign.name}
+                              {experience.name}
                             </span>
-                            {' has chosen to donate a portion of all proceeds from this campaign to:'}
+                            {' has chosen to donate a portion of all proceeds from this experience to:'}
                           </div>
                         </div>
                         <div className="support-block p-3">
                           <Row>
-                            <Col xs={12} sm={12} md={5} className="d-flex align-items-center justify-content-center justify-content-md-start">
+                            <Col
+                              xs={12}
+                              sm={12}
+                              md={5}
+                              className="d-flex align-items-center justify-content-center justify-content-md-start"
+                            >
                               <LazyLoadImage
                                 alt={'support-act'}
                                 effect="blur"
@@ -242,9 +309,16 @@ const CampaignDetail = ({ router }) => {
                                 className="support-act-image px-md-2 mb-2 mb-md-0"
                               />
                             </Col>
-                            <Col xs={12} sm={12} md={7} className="d-flex align-items-center justify-content-center justify-content-md-start">
+                            <Col
+                              xs={12}
+                              sm={12}
+                              md={7}
+                              className="d-flex align-items-center justify-content-center justify-content-md-start"
+                            >
                               <div className="support-small-text">
-                                {'Supporting music workers impacted by COVID-19.'}
+                                {
+                                  'Supporting music workers impacted by COVID-19.'
+                                }
                               </div>
                             </Col>
                           </Row>
@@ -260,16 +334,16 @@ const CampaignDetail = ({ router }) => {
                         >
                           <h4 className="content-title mb-4 font-weight-bolder">
                             UPCOMING CONCERTS
-                        </h4>
+                          </h4>
                           <div className="concerts-container px-4 pb-4 pt-2">
                             <div className="concerts-item">
                               <div className="concerts-item__date">
                                 <div className="concerts-item__date__text">
                                   JUL
-                              </div>
+                                </div>
                                 <div className="concerts-item__date__number">
                                   25
-                              </div>
+                                </div>
                               </div>
                               <div className="d-flex w-100 concerts-item__border-top">
                                 <div className="concerts-item__info">
@@ -282,11 +356,13 @@ const CampaignDetail = ({ router }) => {
                                       size={'lg'}
                                       color={'#333'}
                                     />{' '}
-                                  7-11 Dawson Street, Brunswick VIC, Australia
-                                </div>
+                                    7-11 Dawson Street, Brunswick VIC, Australia
+                                  </div>
                                 </div>
                                 <div className="concerts-item__schedule">
-                                  <div className="schedule-text">Wed, Jul 25</div>
+                                  <div className="schedule-text">
+                                    Wed, Jul 25
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -294,10 +370,10 @@ const CampaignDetail = ({ router }) => {
                               <div className="concerts-item__date">
                                 <div className="concerts-item__date__text">
                                   JUL
-                              </div>
+                                </div>
                                 <div className="concerts-item__date__number">
                                   30
-                              </div>
+                                </div>
                               </div>
                               <div className="d-flex w-100 concerts-item__border-top">
                                 <div className="concerts-item__info">
@@ -310,11 +386,13 @@ const CampaignDetail = ({ router }) => {
                                       size={'lg'}
                                       color={'#333'}
                                     />{' '}
-                                  7-11 Dawson Street, Brunswick VIC, Australia
-                                </div>
+                                    7-11 Dawson Street, Brunswick VIC, Australia
+                                  </div>
                                 </div>
                                 <div className="concerts-item__schedule">
-                                  <div className="schedule-text">Fri, Jul 30</div>
+                                  <div className="schedule-text">
+                                    Fri, Jul 30
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -328,7 +406,10 @@ const CampaignDetail = ({ router }) => {
                       <span className="support-art-question">
                         Got any questions?{' '}
                       </span>
-                      <a href="mailto:contact@giggedin.com" className="support-art-email-us">
+                      <a
+                        href="mailto:contact@giggedin.com"
+                        className="support-art-email-us"
+                      >
                         {'Email us here'}
                       </a>
                     </div>
@@ -343,9 +424,11 @@ const CampaignDetail = ({ router }) => {
               <div className="artist-info-block p-4">
                 <div className="artist-info__header d-flex">
                   <div
-                    className="artist-info__header__artist-image"
+                    className="artist-info__header__artist-image background-image-responsive"
                     style={{
-                      backgroundImage: `url(${getImageUrl(artist.profile_pic)})`,
+                      backgroundImage: `url(${getImageUrl(
+                        artist.profile_pic
+                      )})`,
                     }}
                   ></div>
                   <div className="artist-info__header__artist-info pl-3 d-flex flex-column justify-content-around py-2">
@@ -392,6 +475,32 @@ const CampaignDetail = ({ router }) => {
                     <div className="artist-info__header__artist-name">
                       {artist.name}
                     </div>
+                    {/* <div
+                      class="g-ytsubscribe"
+                      data-theme="default"
+                      data-layout="default"
+                      // data-channel="alibartermusic"
+                      data-channelid="UCCULNHh-ovHefY2VvGR1iWQ"
+                    />
+                    <div className="flex">
+                      <iframe
+                        src="https://open.spotify.com/follow/1/?uri=spotify:artist:1nqY30Z4Bj4NNqZITdGqpX&size=basic&theme=light"
+                        width="200"
+                        height="30"
+                        scrolling="no"
+                        frameborder="0"
+                        allowtransparency="true"
+                      ></iframe>
+                    </div>
+                    <div
+                      class="fb-like"
+                      data-href="https://www.facebook.com/alibmusic/"
+                      data-width=""
+                      data-layout="button_count"
+                      data-action="like"
+                      data-size="small"
+                      data-share="false"
+                    ></div> */}
                   </div>
                 </div>
                 <div className="artist-info__body">

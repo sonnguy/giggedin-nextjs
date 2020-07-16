@@ -4,12 +4,19 @@ const withSass = require('@zeit/next-sass');
 const image = require('next-images');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 require('dotenv').config();
 
 // TODO: manifest.json robot.txt sw.js
 
-module.exports = withPlugins([ [ withCSS ], [ withSass ], [ image ] ], {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true'
+})
+
+
+module.exports = withPlugins([[withCSS], [withSass], [image], [withBundleAnalyzer]], {
+	compress: true,
 	webpack: (config, { dev }) => {
 		config.plugins = config.plugins || [];
 		config.plugins = [
@@ -19,6 +26,13 @@ module.exports = withPlugins([ [ withCSS ], [ withSass ], [ image ] ], {
 				systemvars: true
 			})
 		];
+		config.optimization.minimizer = [];
+		config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
+		if (dev) {
+			config.node = {
+				fs: 'empty'
+			}
+		}
 
 		return config;
 	}

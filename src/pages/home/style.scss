@@ -1,8 +1,4 @@
 .home-page {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-
     &__support-act {
         border: 10px solid #fff;
 
@@ -75,5 +71,15 @@
             font-size: 20px;
             font-weight: bolder;
         }
+    }
+}
+
+.about-giggedin-header {
+    &__text {
+        font-size: 28px;
+        font-weight: 900;
+    }
+    &__giggedin-name {
+        color: #ff4a32;
     }
 }
