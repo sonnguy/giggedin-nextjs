@@ -61,6 +61,7 @@ const Layout = ({ header, children }) => {
 					<Banner />
 				</div>
 			</header>
+			<div id="root"></div>
 			<div className="main-body">
 				{children}
 			</div>

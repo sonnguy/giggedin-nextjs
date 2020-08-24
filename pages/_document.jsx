@@ -8,7 +8,7 @@ class InlineStylesHead extends Head {
     }
 
     __getInlineStyles() {
-        const { assetPrefix, files } = this.context._documentProps
+        const { assetPrefix, files } = this.context;
         if (!files || files.length === 0) return null
 
         return files.filter(file => /\.css$/.test(file)).map(file => (

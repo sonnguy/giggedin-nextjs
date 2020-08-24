@@ -1,29 +1,30 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
-import React from 'react';
-import './style.scss';
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { getImageUrl } from '../../services/imageService';
-import { useEffect } from 'react';
-import FaIcon from '../../components/fontAwesomeIcon';
-import { getCampaignSuccess } from '../../actions/campaignAction';
-import { useState } from 'react';
-import ReactHtmlParser from 'react-html-parser';
-import Sticky from 'react-stickynode';
-import supportact from '../../../public/images/supportact.png';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import Mixpanel from '../../tracking/mixpanel';
-import GA from '../../tracking/ga';
-import { withRouter } from 'next/router';
-import Router from 'next/router';
-import DOMPurify from 'isomorphic-dompurify';
-import Head from 'next/head';
+import React from "react";
+import "./style.scss";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { getImageUrl } from "../../services/imageService";
+import { useEffect } from "react";
+import FaIcon from "../../components/fontAwesomeIcon";
+import { getCampaignSuccess } from "../../actions/campaignAction";
+import { useState } from "react";
+import ReactHtmlParser from "react-html-parser";
+import Sticky from "react-stickynode";
+import supportact from "../../../public/images/supportact.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import Mixpanel from "../../tracking/mixpanel";
+import GA from "../../tracking/ga";
+import { withRouter } from "next/router";
+import Router from "next/router";
+import DOMPurify from "isomorphic-dompurify";
+import {Helmet} from "react-helmet";
 
 const CampaignDetail = ({ router, experience }) => {
   const dispatch = useDispatch();
-  const [menuActive, setNenuActive] = useState('');
+  const [menuActive, setNenuActive] = useState("");
 
-  const getCampaignSuccessFn = (campaign) => dispatch(getCampaignSuccess(campaign));
+  const getCampaignSuccessFn = (campaign) =>
+    dispatch(getCampaignSuccess(campaign));
 
   const goToCheckout = () => {
     Mixpanel.track("Click_ClaimSpot", { experience: experience.id });
@@ -45,20 +46,20 @@ const CampaignDetail = ({ router, experience }) => {
     // document.body.appendChild(scriptGoogle);
     // document.body.appendChild(scriptFacebook);
 
-    const ReactPixel = require('react-facebook-pixel').default;
+    const ReactPixel = require("react-facebook-pixel").default;
     ReactPixel.init(
-      '1698442107043541',
+      "1698442107043541",
       {},
       {
         autoConfig: true,
         debug: false,
       }
     );
-    ReactPixel.track('ViewContent', { page: 'Exp_Page' });
-    Mixpanel.pageView('View_Exp_Page');
+    ReactPixel.track("ViewContent", { page: "Exp_Page" });
+    Mixpanel.pageView("View_Exp_Page");
     GA.pageView();
     const { slug } = router.query;
-    const id = slug.split('-').pop();
+    const id = slug.split("-").pop();
     getCampaignSuccessFn(experience);
     if (experience.id) {
       const { tabs } = experience;
@@ -67,7 +68,6 @@ const CampaignDetail = ({ router, experience }) => {
       }
     }
   }, []);
-
 
   const artist = (experience.artists && experience.artists[0]) || {};
   const music_enabled = experience.music_enabled === 1;
@@ -78,6 +78,13 @@ const CampaignDetail = ({ router, experience }) => {
 
   return (
     <>
+      <Helmet>
+        <script
+          src="https://fllw.co//widget.js"
+          id="Simple-Widget-Script"
+          data-config="{'name': 'fllwr', 'config': {'targetElementId': 'root', 'type':'all'}}"
+        ></script>
+      </Helmet>
       <Sticky top={0} innerZ={999}>
         <div className="sticky-cta-bar">
           <Container className="position-relative py-2">
@@ -91,13 +98,12 @@ const CampaignDetail = ({ router, experience }) => {
                 ></div>
                 <div className="sticky-cta-bar__artist-info pl-3 d-flex flex-column justify-content-center">
                   <div className="sticky-cta-bar__artist-info__title">{`${experience.name}: ${experience.headline}`}</div>
-                  {
-                    !spots_unlimited &&
+                  {!spots_unlimited && (
                     <div className="sticky-cta-bar__artist-info__spot-left">
-                      <FaIcon name="faFireAlt" size={'1x'} color={'#fff'} />
-                      {' Only 10 spots left'}
+                      <FaIcon name="faFireAlt" size={"1x"} color={"#fff"} />
+                      {" Only 10 spots left"}
                     </div>
-                  }
+                  )}
                 </div>
               </Col>
               <Col
@@ -112,7 +118,7 @@ const CampaignDetail = ({ router, experience }) => {
                   size="lg"
                   variant="dark"
                 >
-                  {'Claim your spot now'}
+                  {"Claim your spot now"}
                 </Button>
               </Col>
             </Row>
@@ -127,7 +133,9 @@ const CampaignDetail = ({ router, experience }) => {
                 How Does This Work?
               </h4>
               <div className="hdiw-text">
-                {ReactHtmlParser(DOMPurify.sanitize(experience.how_does_it_work))}
+                {ReactHtmlParser(
+                  DOMPurify.sanitize(experience.how_does_it_work)
+                )}
               </div>
             </div>
             <div className="experience-detail mt-4">
@@ -141,18 +149,18 @@ const CampaignDetail = ({ router, experience }) => {
                       <a
                         href="#story"
                         className={`campaign-detail__menu__item pr-2 pr-sm-0 ${
-                          menuActive === 'story' && 'active'
-                          }`}
+                          menuActive === "story" && "active"
+                        }`}
                         onClick={() => {
-                          setNenuActive('story');
+                          setNenuActive("story");
                         }}
                       >
                         <FaIcon
                           name="faLongArrowAltRight"
-                          size={'lg'}
-                          color={'#333'}
+                          size={"lg"}
+                          color={"#333"}
                         />
-                        {'  Story'}
+                        {"  Story"}
                       </a>
                     )}
                     {tabs &&
@@ -161,16 +169,16 @@ const CampaignDetail = ({ router, experience }) => {
                           key={item.id}
                           href={`#${item.title.toLowerCase()}`}
                           className={`campaign-detail__menu__item pr-2 pr-sm-0 ${
-                            menuActive === item.title.toLowerCase() && 'active'
-                            }`}
+                            menuActive === item.title.toLowerCase() && "active"
+                          }`}
                           onClick={() => {
                             setNenuActive(item.title.toLowerCase());
                           }}
                         >
                           <FaIcon
                             name="faLongArrowAltRight"
-                            size={'lg'}
-                            color={'#333'}
+                            size={"lg"}
+                            color={"#333"}
                           />
                           {item.title}
                         </a>
@@ -178,34 +186,34 @@ const CampaignDetail = ({ router, experience }) => {
                     <a
                       href="#charity"
                       className={`campaign-detail__menu__item pr-2 pr-sm-0 ${
-                        menuActive === 'charity' && 'active'
-                        }`}
+                        menuActive === "charity" && "active"
+                      }`}
                       onClick={() => {
-                        setNenuActive('charity');
+                        setNenuActive("charity");
                       }}
                     >
                       <FaIcon
                         name="faLongArrowAltRight"
-                        size={'lg'}
-                        color={'#333'}
+                        size={"lg"}
+                        color={"#333"}
                       />
-                      {'  The Charity'}
+                      {"  The Charity"}
                     </a>
                     {music_enabled && (
                       <a
                         href="#music"
                         className={`campaign-detail__menu__item pr-2 pr-sm-0 ${
-                          menuActive === 'music' && 'active'
-                          }`}
+                          menuActive === "music" && "active"
+                        }`}
                         onClick={() => {
-                          setNenuActive('music');
+                          setNenuActive("music");
                         }}
                       >
                         <FaIcon
                           name="faLongArrowAltRight"
-                          size={'lg'}
-                          color={'#333'}
-                        />{' '}
+                          size={"lg"}
+                          color={"#333"}
+                        />{" "}
                         Music
                       </a>
                     )}
@@ -213,17 +221,17 @@ const CampaignDetail = ({ router, experience }) => {
                       <a
                         href="#concerts"
                         className={`campaign-detail__menu__item pr-2 pr-sm-0 ${
-                          menuActive === 'concerts' && 'active'
-                          }`}
+                          menuActive === "concerts" && "active"
+                        }`}
                         onClick={() => {
-                          setNenuActive('concerts');
+                          setNenuActive("concerts");
                         }}
                       >
                         <FaIcon
                           name="faLongArrowAltRight"
-                          size={'lg'}
-                          color={'#333'}
-                        />{' '}
+                          size={"lg"}
+                          color={"#333"}
+                        />{" "}
                         Upcoming Shows
                       </a>
                     )}
@@ -239,12 +247,16 @@ const CampaignDetail = ({ router, experience }) => {
                     {!tabs && (
                       <div
                         className="campaign-detail__content__story"
-                        id={'story'}
+                        id={"story"}
                       >
                         <h4 className="content-title mb-3 font-weight-bolder">
-                          {'Story'}
+                          {"Story"}
                         </h4>
-                        <div>{ReactHtmlParser(DOMPurify.sanitize(experience.story))}</div>
+                        <div>
+                          {ReactHtmlParser(
+                            DOMPurify.sanitize(experience.story)
+                          )}
+                        </div>
                         <div className="separate-line my-4"></div>
                       </div>
                     )}
@@ -282,7 +294,7 @@ const CampaignDetail = ({ router, experience }) => {
                       id="charity"
                     >
                       <h4 className="content-title mb-3 font-weight-bolder">
-                        {'THE CHARITY'}
+                        {"THE CHARITY"}
                       </h4>
                       <div>
                         <div className="charity-block pb-4">
@@ -290,7 +302,9 @@ const CampaignDetail = ({ router, experience }) => {
                             <span className="artist-name">
                               {experience.name}
                             </span>
-                            {' has chosen to donate a portion of all proceeds from this experience to:'}
+                            {
+                              " has chosen to donate a portion of all proceeds from this experience to:"
+                            }
                           </div>
                         </div>
                         <div className="support-block p-3">
@@ -302,7 +316,7 @@ const CampaignDetail = ({ router, experience }) => {
                               className="d-flex align-items-center justify-content-center justify-content-md-start"
                             >
                               <LazyLoadImage
-                                alt={'support-act'}
+                                alt={"support-act"}
                                 effect="blur"
                                 src={supportact}
                                 placeholderSrc={supportact}
@@ -317,7 +331,7 @@ const CampaignDetail = ({ router, experience }) => {
                             >
                               <div className="support-small-text">
                                 {
-                                  'Supporting music workers impacted by COVID-19.'
+                                  "Supporting music workers impacted by COVID-19."
                                 }
                               </div>
                             </Col>
@@ -348,14 +362,14 @@ const CampaignDetail = ({ router, experience }) => {
                               <div className="d-flex w-100 concerts-item__border-top">
                                 <div className="concerts-item__info">
                                   <div className="concerts-name">
-                                    Apashe with Avy and Eminem{' '}
+                                    Apashe with Avy and Eminem{" "}
                                   </div>
                                   <div className="concerts-location">
                                     <FaIcon
                                       name="faMapMarkerAlt"
-                                      size={'lg'}
-                                      color={'#333'}
-                                    />{' '}
+                                      size={"lg"}
+                                      color={"#333"}
+                                    />{" "}
                                     7-11 Dawson Street, Brunswick VIC, Australia
                                   </div>
                                 </div>
@@ -378,14 +392,14 @@ const CampaignDetail = ({ router, experience }) => {
                               <div className="d-flex w-100 concerts-item__border-top">
                                 <div className="concerts-item__info">
                                   <div className="concerts-name">
-                                    Apashe with Avy and Eminem{' '}
+                                    Apashe with Avy and Eminem{" "}
                                   </div>
                                   <div className="concerts-location">
                                     <FaIcon
                                       name="faMapMarkerAlt"
-                                      size={'lg'}
-                                      color={'#333'}
-                                    />{' '}
+                                      size={"lg"}
+                                      color={"#333"}
+                                    />{" "}
                                     7-11 Dawson Street, Brunswick VIC, Australia
                                   </div>
                                 </div>
@@ -404,13 +418,13 @@ const CampaignDetail = ({ router, experience }) => {
 
                     <div>
                       <span className="support-art-question">
-                        Got any questions?{' '}
+                        Got any questions?{" "}
                       </span>
                       <a
                         href="mailto:contact@giggedin.com"
                         className="support-art-email-us"
                       >
-                        {'Email us here'}
+                        {"Email us here"}
                       </a>
                     </div>
                     <div className="mb-5 mb-md-0 pb-3 pb-md-0"></div>
@@ -442,8 +456,8 @@ const CampaignDetail = ({ router, experience }) => {
                         >
                           <FaIcon
                             name="faFacebook"
-                            size={'1x'}
-                            color={'#333'}
+                            size={"1x"}
+                            color={"#333"}
                           />
                         </a>
                       ) : null}
@@ -454,7 +468,7 @@ const CampaignDetail = ({ router, experience }) => {
                           className="px-2"
                           rel="noopener noreferrer"
                         >
-                          <FaIcon name="faTwitter" size={'1x'} color={'#333'} />
+                          <FaIcon name="faTwitter" size={"1x"} color={"#333"} />
                         </a>
                       ) : null}
                       {artist.instagram ? (
@@ -466,8 +480,8 @@ const CampaignDetail = ({ router, experience }) => {
                         >
                           <FaIcon
                             name="faInstagram"
-                            size={'1x'}
-                            color={'#333'}
+                            size={"1x"}
+                            color={"#333"}
                           />
                         </a>
                       ) : null}
@@ -524,7 +538,7 @@ const CampaignDetail = ({ router, experience }) => {
                         className="pr-2"
                         rel="noopener noreferrer"
                       >
-                        <FaIcon name="faApple" size={'lg'} color={'#ff4a32'} />
+                        <FaIcon name="faApple" size={"lg"} color={"#ff4a32"} />
                       </a>
                     ) : null}
                     {artist.spotify ? (
@@ -536,8 +550,8 @@ const CampaignDetail = ({ router, experience }) => {
                       >
                         <FaIcon
                           name="faSpotify"
-                          size={'lg'}
-                          color={'#ff4a32'}
+                          size={"lg"}
+                          color={"#ff4a32"}
                         />
                       </a>
                     ) : null}
@@ -550,8 +564,8 @@ const CampaignDetail = ({ router, experience }) => {
                       >
                         <FaIcon
                           name="faSoundcloud"
-                          size={'lg'}
-                          color={'#ff4a32'}
+                          size={"lg"}
+                          color={"#ff4a32"}
                         />
                       </a>
                     ) : null}
@@ -565,8 +579,8 @@ const CampaignDetail = ({ router, experience }) => {
                       >
                         <FaIcon
                           name="faYoutube"
-                          size={'lg'}
-                          color={'#ff4a32'}
+                          size={"lg"}
+                          color={"#ff4a32"}
                         />
                       </a>
                     ) : null}
