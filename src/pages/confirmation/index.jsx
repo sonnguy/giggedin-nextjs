@@ -12,6 +12,7 @@ import FaIcon from "../../components/fontAwesomeIcon";
 import "react-credit-cards/lib/styles.scss";
 import { toast } from "react-toastify";
 import { getSlugName } from "../../services/utilsService";
+import { withRouter } from "next/router";
 
 const Confirmation = ({ experience }) => {
   const [artist, setArtirst] = useState({});
