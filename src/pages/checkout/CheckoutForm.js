@@ -36,10 +36,6 @@ class CheckOutForm extends React.Component {
     },
   };
 
-  componentDidMount() {
-    // Mixpanel.pageView('View_Exp_CheckoutForm');
-    // GA.pageView();
-  }
 
   onStartPayment = async () => {
     const { fields } = this.state;
@@ -149,7 +145,6 @@ class CheckOutForm extends React.Component {
   };
 
   handleSubmit = (event) => {
-    //Mixpanel.track('Click_PaymentButton');
     const form = event.currentTarget;
     event.preventDefault();
     this.setState({ validated: true });

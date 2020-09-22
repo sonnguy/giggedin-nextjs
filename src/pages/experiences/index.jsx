@@ -14,13 +14,6 @@ const Experiences = ({ experiences }) => {
         Router.push({ pathname: path }, `/experience/${slug}`);
     }
 
-    useEffect(() => {
-        // const ReactPixel = require('react-facebook-pixel').default;
-        // ReactPixel.track('ViewContent', { page: 'Experiences_Page' });
-        // Mixpanel.pageView("View_Exp_Experiences");
-        // GA.pageView();
-    }, [])
-
     return (
         <Container className="artist-list-list-content mt-4">
             <Row>

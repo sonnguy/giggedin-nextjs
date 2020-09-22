@@ -54,7 +54,6 @@ const CampaignDetail = ({ experience }) => {
     dispatch(getCampaignSuccess(campaign));
 
   const goToCheckout = () => {
-    // Mixpanel.track("Click_ClaimSpot", { experience: experience.id });
     if (!user) {
       let path = `/registration`;
       const artist = (experience.artists && experience.artists[0]) || {};

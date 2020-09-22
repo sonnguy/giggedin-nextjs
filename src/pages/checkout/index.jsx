@@ -30,7 +30,6 @@ class CheckOut extends React.Component {
   };
 
   checkOutOnClick = () => {
-    Mixpanel.track('Click_SelectPackage');
     const { step } = this.state;
     if (step === 1) {
       this.setState({ step: step + 1 });
@@ -38,12 +37,6 @@ class CheckOut extends React.Component {
       //call payment action
     }
   };
-  componentDidMount() {
-    // const ReactPixel = require('react-facebook-pixel').default;
-    // ReactPixel.track('ViewContent', { page: 'Checkout_Page' });
-    // Mixpanel.pageView('View_Exp_Packages');
-    // GA.pageView();
-  }
 
   goToLogin = () => {
     this.setState({
@@ -113,7 +106,6 @@ class CheckOut extends React.Component {
     this.setState({
       selectedTier: [...selectedTier, item],
     });
-    //Mixpanel.track('Click_SelectPackage', { tier: item.id });
   };
   onRemoveItem = (item) => {
     const { selectedTier } = this.state;

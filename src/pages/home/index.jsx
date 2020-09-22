@@ -28,12 +28,6 @@ const Home = ({ experience }) => {
 
     const spots_unlimited = experience.spots_unlimited === 1;
 
-    useEffect(() => {
-        // const ReactPixel = require('react-facebook-pixel').default;
-        // ReactPixel.track('ViewContent', { page: 'Exp_Homepage' });
-        // Mixpanel.pageView('View_Exp_Homepage');
-        // GA.pageView();
-    }, []);
 
     return (
         experience && (

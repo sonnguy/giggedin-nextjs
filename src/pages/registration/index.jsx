@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import RegisterForm from "../../components/registerForm";
-import GA from "../..";
 import { withRouter } from "next/router";
 import Router from "next/router";
 import { claimEvent } from "../../api/checkoutApi";
@@ -11,8 +10,6 @@ import { appId } from "../../constants/facebookConstants";
 import { spotifyFollowingApi } from "../../api/artistApi";
 class Registration extends React.Component {
   componentDidMount() {
-    // Mixpanel.pageView("View_Exp_Login");
-    // GA.pageView();
     const scriptFacebook = document.createElement("script");
     scriptFacebook.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${appId}`;
     scriptFacebook.async = true;

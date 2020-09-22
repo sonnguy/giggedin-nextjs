@@ -7,10 +7,6 @@ import { withRouter } from 'next/router';
 import Router from 'next/router';
 
 class Login extends React.Component {
-    componentDidMount() {
-        // Mixpanel.pageView("View_Exp_Login");
-        // GA.pageView();
-    }
 
     goBack = () => {
         const redirect_url = this.props.router.asPath.split("=")[1];
