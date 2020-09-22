@@ -13,25 +13,40 @@ const JimmyPage = (props) => {
   );
 };
 
-JimmyPage.getInitialProps = async () => {
+export async function getStaticProps() {
   const res = await getCampaignApi(4);
   const experience = res.data.campaign;
   const slug = getSlugName(experience.name);
   return {
-    header: {
-      title: `${experience.name}: ${experience.headline}`,
-      description: experience.description,
-      keywords: `${experience.name}: ${experience.headline}`,
-      siteName: "GiggedIn",
-      url: `${process.env.REACT_APP_HOST_URL}/experience/${slug}-${experience.id}`,
-      image: getImageUrl(experience.banner),
-    },
-    experience,
-  };
-};
+    props: {
+      header: {
+        title: `${experience.name}: ${experience.headline}`,
+        description: experience.description,
+        keywords: `${experience.name}: ${experience.headline}`,
+        siteName: "GiggedIn",
+        url: `${process.env.REACT_APP_HOST_URL}/experience/${slug}-${experience.id}`,
+        image: getImageUrl(experience.banner),
+      },
+      experience,
+    }
+  }
+}
 
-JimmyPage.propTypes = {
-  header: T.shape({}).isRequired,
-};
 
+// JimmyPage.getInitialProps = async () => {
+//   const res = await getCampaignApi(4);
+//   const experience = res.data.campaign;
+//   const slug = getSlugName(experience.name);
+//   return {
+//     header: {
+//       title: `${experience.name}: ${experience.headline}`,
+//       description: experience.description,
+//       keywords: `${experience.name}: ${experience.headline}`,
+//       siteName: "GiggedIn",
+//       url: `${process.env.REACT_APP_HOST_URL}/experience/${slug}-${experience.id}`,
+//       image: getImageUrl(experience.banner),
+//     },
+//     experience,
+//   };
+// };
 export default JimmyPage;
