@@ -10,13 +10,15 @@ const HomePage = (props) => {
   );
 };
 
-HomePage.getInitialProps = async () => {
+export async function getStaticProps() {
   const res = await getCampaignApi(3);
   const experience = res.data.campaign;
   return {
-    experience
-  };
-};
+    props: {
+      experience,
+    }
+  }
+}
 
 
 export default HomePage;

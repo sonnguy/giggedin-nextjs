@@ -10,9 +10,14 @@ const AboutUsPage = (props) => {
   );
 };
 
-AboutUsPage.getInitialProps = async ({ query }) => {
-  const { slug } = query;
+// This function gets called at build time
+export async function getStaticPaths() {
+  const paths = [`/about-us/giggedin`, `/about-us/terms-and-conditions`, `/about-us/privacy-and-policy`]
+  return { paths, fallback: false }
+}
 
+export async function getStaticProps(context) {
+  const { slug } = context.params;
   const getTitle = () => {
     switch (slug) {
       case 'giggedin':
@@ -27,17 +32,17 @@ AboutUsPage.getInitialProps = async ({ query }) => {
   }
 
   return {
-    header: {
-      title: `GiggedIn Experiences | ${getTitle()}`,
-      title: `GiggedIn Experiences | ${getTitle()}`,
-      title: `GiggedIn Experiences | ${getTitle()}`,
-      siteName: 'GiggedIn',
-      url: `${process.env.REACT_APP_HOST_URL}/about-us/${slug}`,
-    },
-  };
-
+    props: {
+      header: {
+        title: `GiggedIn Experiences | ${getTitle()}`,
+        title: `GiggedIn Experiences | ${getTitle()}`,
+        title: `GiggedIn Experiences | ${getTitle()}`,
+        siteName: 'GiggedIn',
+        url: `${process.env.REACT_APP_HOST_URL}/about-us/${slug}`,
+      },
+    }
+  }
 }
-
 
 AboutUsPage.propTypes = {
   header: T.shape({}).isRequired,
