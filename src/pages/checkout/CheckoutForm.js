@@ -9,8 +9,7 @@ import { connect } from 'react-redux';
 import { countries } from '../../data/countries';
 import { clapUser, clapGuest } from '../../api/checkoutApi';
 import { toast } from 'react-toastify';
-import Mixpanel from '../../tracking/mixpanel';
-import GA from '../../tracking/ga';
+
 import Router from 'next/router';
 import { validateEmail } from '../../services/utilsService';
 import { userCheck } from '../../api/userApi';

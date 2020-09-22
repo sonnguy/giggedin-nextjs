@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import Mixpanel from '../../tracking/mixpanel';
-import GA from '../../tracking/ga';
+
+
 import './style.scss'
 import { withRouter } from 'next/router';
 import Router from 'next/router';

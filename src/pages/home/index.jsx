@@ -8,8 +8,8 @@ import arrow from '../../../public/images/home-arrow-right.png';
 import horiline from '../../../public/images/hori-line.png';
 import { fullDate, getSlugName } from '../../services/utilsService';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import Mixpanel from '../../tracking/mixpanel';
-import GA from '../../tracking/ga';
+
+
 import bgImage from '../../../public/images/home-artist-image.jpg';
 import Router from 'next/router';
 import FaIcon from '../../components/fontAwesomeIcon';

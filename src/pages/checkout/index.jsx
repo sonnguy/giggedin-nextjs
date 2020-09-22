@@ -6,8 +6,8 @@ import LoginRegisterForm from './LoginRegisterForm';
 import { getImageUrl } from '../../services/imageService';
 import ReactHtmlParser from 'react-html-parser';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import Mixpanel from '../../tracking/mixpanel';
-import GA from '../../tracking/ga';
+
+
 import { withRouter } from 'next/router';
 import DOMPurify from 'isomorphic-dompurify';
 import { auth } from '../../api/spotifyApi';

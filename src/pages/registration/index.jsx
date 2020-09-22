@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import RegisterForm from "../../components/registerForm";
 import Mixpanel from "../../tracking/mixpanel";
-import GA from "../../tracking/ga";
+import GA from "../..";
 import { withRouter } from "next/router";
 import Router from "next/router";
 import { claimEvent } from "../../api/checkoutApi";
@@ -36,7 +36,7 @@ class Registration extends React.Component {
     const artist = paramsArr[1].split("=")[1];
 
     if (source == "spotify") {
-      spotifyFollowingApi(artist).then((res) => {});
+      spotifyFollowingApi(artist).then((res) => { });
     }
     try {
       const res = await claimEvent(id, source);

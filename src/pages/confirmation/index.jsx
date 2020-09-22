@@ -12,7 +12,7 @@ import FaIcon from "../../components/fontAwesomeIcon";
 import "react-credit-cards/lib/styles.scss";
 import { toast } from "react-toastify";
 import Mixpanel from "../../tracking/mixpanel";
-import GA from "../../tracking/ga";
+import GA from "../..";
 import { withRouter } from "next/router";
 import { getSlugName } from "../../services/utilsService";
 

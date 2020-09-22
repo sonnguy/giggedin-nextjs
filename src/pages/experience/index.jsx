@@ -20,8 +20,6 @@ import ReactHtmlParser from "react-html-parser";
 import Sticky from "react-stickynode";
 import supportact from "../../../public/images/supportact.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import Mixpanel from "../../tracking/mixpanel";
-import GA from "../../tracking/ga";
 import { withRouter } from "next/router";
 import Router from "next/router";
 import { checkCampaignPaidApi, answerQuestionApi } from "../../api/campaignApi";

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Campaign from '../../components/campaign/campaign';
-import Mixpanel from '../../tracking/mixpanel';
-import GA from '../../tracking/ga';
+
+
 import Router from 'next/router';
 import { getSlugName } from '../../services/utilsService';
 
