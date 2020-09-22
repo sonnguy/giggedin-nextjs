@@ -54,6 +54,7 @@ const CampaignDetail = ({ experience }) => {
     dispatch(getCampaignSuccess(campaign));
 
   const goToCheckout = () => {
+    // Mixpanel.track("Click_ClaimSpot", { experience: experience.id });
     if (!user) {
       let path = `/registration`;
       const artist = (experience.artists && experience.artists[0]) || {};
@@ -195,6 +196,18 @@ const CampaignDetail = ({ experience }) => {
   };
 
   useEffect(() => {
+    // const ReactPixel = require("react-facebook-pixel").default;
+    // ReactPixel.init(
+    //   "1698442107043541",
+    //   {},
+    //   {
+    //     autoConfig: true,
+    //     debug: false,
+    //   }
+    // );
+    // ReactPixel.track("ViewContent", { page: "Exp_Page" });
+    // Mixpanel.pageView("View_Exp_Page");
+    // GA.pageView();
     getCampaignSuccessFn(experience);
     if (experience.id) {
       const { tabs } = experience;
@@ -203,6 +216,11 @@ const CampaignDetail = ({ experience }) => {
       }
     }
 
+
+    // const scriptGoogle = document.createElement('script');
+    // scriptGoogle.src = 'https://apis.google.com/js/platform.js';
+    // scriptGoogle.async = true;
+    // document.body.appendChild(scriptGoogle);
     const scriptFacebook = document.createElement("script");
     scriptFacebook.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${appId}`;
     scriptFacebook.async = true;
@@ -302,18 +320,14 @@ const CampaignDetail = ({ experience }) => {
                 <div className="win-awesome-price-body">
                   <div className="win-awesome-price-text mb-4 text-center">
                     {isWinPrice ? (
-                      `Congratulations, you’ve entered the competition. Winners will be notified one week from now`
+                      `Congratulations, you’ve entered the competition. The winner will be notified by Wednesday the 14th of October.`
                     ) : (
                         <>
                           <div className="mb-3">
-                            {`What's up for grabs:`}
+                            {`You could win:`}
                           </div>
                           <div>
-                            {`Signed + framed, one-of-a-kind collectors plaque,
-                        featuring all three Jimmy Barnes book covers. Signed
-                        copies of all three Jimmy Barnes books. A personalised
-                        video message from Jimmy, and a $150 voucher for the
-                        Jimmy Barnes Online Store`}
+                            {`A one-of-a-kind prize pack, which includes: a signed and framed collectors' plaque featuring all three Jimmy Barnes book covers; signed copies of all three Jimmy Barnes books; a personalised video message from Jimmy; and a $150 voucher for the Jimmy Barnes Online Store.`}
                           </div>
                           <div className="mt-3">
                             {`Click the button below, and follow the prompts!`}
@@ -688,27 +702,37 @@ const CampaignDetail = ({ experience }) => {
                 <a
                   target="_blank"
                   href="https://bit.ly/3mo0YW8"
-                  className="book-item background-image-responsive"
-                  style={{
-                    backgroundImage: `url(${hardback})`,
-                  }}
-                ></a>
+                >
+                  <LazyLoadImage
+                    alt={"support-act"}
+                    effect="blur"
+                    src={hardback}
+                    placeholderSrc={hardback}
+                    className="book-item"
+                  /></a>
                 <a
                   target="_blank"
                   href="https://apple.co/3bX0otP"
-                  className="book-item background-image-responsive"
-                  style={{
-                    backgroundImage: `url(${ebook})`,
-                  }}
-                ></a>
+                >
+                  <LazyLoadImage
+                    alt={"support-act"}
+                    effect="blur"
+                    src={ebook}
+                    placeholderSrc={ebook}
+                    className="book-item"
+                  />
+                </a>
                 <a
                   target="_blank"
                   href="https://adbl.co/2ZF1KEq"
-                  className="book-item background-image-responsive"
-                  style={{
-                    backgroundImage: `url(${audiobook})`,
-                  }}
-                ></a>
+                >
+                  <LazyLoadImage
+                    alt={"support-act"}
+                    effect="blur"
+                    src={audiobook}
+                    placeholderSrc={audiobook}
+                    className="book-item"
+                  /></a>
               </div>
             </div>
           </Col>
