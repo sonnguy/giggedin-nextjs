@@ -198,18 +198,6 @@ const CampaignDetail = ({ experience }) => {
   };
 
   useEffect(() => {
-    // const ReactPixel = require("react-facebook-pixel").default;
-    // ReactPixel.init(
-    //   "1698442107043541",
-    //   {},
-    //   {
-    //     autoConfig: true,
-    //     debug: false,
-    //   }
-    // );
-    // ReactPixel.track("ViewContent", { page: "Exp_Page" });
-    // Mixpanel.pageView("View_Exp_Page");
-    // GA.pageView();
     getCampaignSuccessFn(experience);
     if (experience.id) {
       const { tabs } = experience;
@@ -218,11 +206,6 @@ const CampaignDetail = ({ experience }) => {
       }
     }
 
-
-    // const scriptGoogle = document.createElement('script');
-    // scriptGoogle.src = 'https://apis.google.com/js/platform.js';
-    // scriptGoogle.async = true;
-    // document.body.appendChild(scriptGoogle);
     const scriptFacebook = document.createElement("script");
     scriptFacebook.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${appId}`;
     scriptFacebook.async = true;
@@ -492,7 +475,7 @@ const CampaignDetail = ({ experience }) => {
                             <h4 className="content-title mb-3 font-weight-bolder text-center">
                               {"STORY"}
                             </h4>
-                            <div>{ReactHtmlParser(experience.story)}</div>
+                            {/* <div>{ReactHtmlParser(experience.story)}</div> */}
                             <div className="separate-line my-4"></div>
                           </div>
                         )}
@@ -506,7 +489,7 @@ const CampaignDetail = ({ experience }) => {
                               <h4 className="content-title mb-3 font-weight-bolder text-center">
                                 {item.title.toUpperCase()}
                               </h4>
-                              <div>{ReactHtmlParser(item.content)}</div>
+                              {/* <div>{ReactHtmlParser(item.content)}</div> */}
                               {index !== tabs.length - 1 && (
                                 <div className="separate-line my-4"></div>
                               )}
@@ -522,7 +505,7 @@ const CampaignDetail = ({ experience }) => {
                             <h4 className="content-title mb-3 font-weight-bolder text-center">
                               {"MORE INFO"}
                             </h4>
-                            <div>{ReactHtmlParser(experience.congrats_text)}</div>
+                            {/* <div>{ReactHtmlParser(experience.congrats_text)}</div> */}
                             <div className="separate-line my-4"></div>
                           </div>
                         </>
