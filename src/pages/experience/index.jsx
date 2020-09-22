@@ -472,7 +472,7 @@ const CampaignDetail = ({ experience }) => {
                             <h4 className="content-title mb-3 font-weight-bolder text-center">
                               {"STORY"}
                             </h4>
-                            {/* <div>{ReactHtmlParser(experience.story)}</div> */}
+                            <div>{ReactHtmlParser(experience.story)}</div>
                             <div className="separate-line my-4"></div>
                           </div>
                         )}
@@ -486,7 +486,7 @@ const CampaignDetail = ({ experience }) => {
                               <h4 className="content-title mb-3 font-weight-bolder text-center">
                                 {item.title.toUpperCase()}
                               </h4>
-                              {/* <div>{ReactHtmlParser(item.content)}</div> */}
+                              <div>{ReactHtmlParser(item.content)}</div>
                               {index !== tabs.length - 1 && (
                                 <div className="separate-line my-4"></div>
                               )}
@@ -502,7 +502,7 @@ const CampaignDetail = ({ experience }) => {
                             <h4 className="content-title mb-3 font-weight-bolder text-center">
                               {"MORE INFO"}
                             </h4>
-                            {/* <div>{ReactHtmlParser(experience.congrats_text)}</div> */}
+                            <div>{ReactHtmlParser(experience.congrats_text)}</div>
                             <div className="separate-line my-4"></div>
                           </div>
                         </>
