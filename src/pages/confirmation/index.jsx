@@ -11,8 +11,6 @@ import { getImageUrl } from "../../services/imageService";
 import FaIcon from "../../components/fontAwesomeIcon";
 import "react-credit-cards/lib/styles.scss";
 import { toast } from "react-toastify";
-import GA from "../..";
-import { withRouter } from "next/router";
 import { getSlugName } from "../../services/utilsService";
 
 const Confirmation = ({ experience }) => {
