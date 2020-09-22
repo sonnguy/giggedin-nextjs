@@ -2,9 +2,36 @@
     background-color: #fff7f6;
     border: solid 1px #ffdad7;
     border-radius: 4px;
+    .hdiw-block-title {
+        @media (max-width: 500px) {
+            font-size: 16px;
+        }
+    }
     .hdiw-text {
         font-size: 15px;
         font-weight: 600;
+    }
+}
+
+.win-awesome-price-block {
+    border: solid 1px #ffdad7;
+    border-radius: 4px;
+    .win-awesome-price-title {
+        color: #ff4a32;
+        @media (max-width: 500px) {
+            font-size: 16px;
+        }
+    }
+    .win-awesome-price-text {
+        font-size: 15px;
+    }
+    .win-awesome-price-btn {
+        font-size: 16px;
+        background-color: #ffdad6;
+        border: solid 1px #ffdad7;
+        @media (max-width: 500px) {
+            font-size: 13px;
+        }
     }
 }
 
@@ -37,13 +64,25 @@
         }
     }
     &__content {
+        .content-title {
+            @media (max-width: 500px) {
+                font-size: 18px;
+            }
+        }
         &__story {
             iframe {
                 width: 100% !important;
+            }
+            iframe[src*="www.youtube.com"] {
                 height: 380px;
             }
+
             img {
                 max-width: 100% !important;
+                margin-bottom: 50px !important;
+            }
+            p {
+                padding-bottom: 5px;
             }
         }
         &__music {
@@ -258,14 +297,25 @@
             }
         }
     }
+    .book-list-block {
+        padding-bottom: 10px !important;
+        &__text {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .book-item {
+            height: 200px;
+            margin-bottom: 20px;
+            display: block;
+        }
+    }
 }
 
 .sticky-cta-bar {
     background-color: #ff4a32;
-    height: 0;
+    display: none;
     opacity: 0;
     transition: all 100ms ease-in-out;
-
     &__artist-image {
         border-radius: 4px;
         min-width: 62px;
@@ -298,7 +348,7 @@
 
 .sticky-outer-wrapper.active {
     .sticky-cta-bar {
-        height: auto;
+        display: block;
         opacity: 1;
         padding: 10px;
         bottom: 100px;
@@ -311,4 +361,14 @@
     .sticky-cta-bar__action {
         display: none !important;
     }
+}
+
+.answer-form {
+    max-width: 400px;
+}
+
+.question-text {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }

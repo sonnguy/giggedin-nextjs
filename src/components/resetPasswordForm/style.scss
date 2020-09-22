@@ -1,0 +1,8 @@
+.reset-password-form {
+    .reset-password-container {
+        &.border {
+            border: solid 1px #ffdad7 !important;
+            height: 100%;
+        }
+    }
+}

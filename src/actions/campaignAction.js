@@ -85,7 +85,7 @@ export const getCampaigns = () => {
                 return res;
             })
             .catch((error) => {
-                console.log('Error', error.message);
+                //console.log('Error', error.message);
                 dispatch(getCampaignsFail(error));
             });
     };
@@ -106,7 +106,7 @@ export const getCampaign = (id) => {
                 return res;
             })
             .catch((error) => {
-                console.log('Error', error.message);
+                //console.log('Error', error.message);
                 dispatch(getCampaignFail(error));
             });
     };
@@ -127,7 +127,7 @@ export const getCampaignSpotPaymented = (campaignId) => {
                 return res;
             })
             .catch((error) => {
-                console.log('Error', error.message);
+                // console.log('Error', error.message);
                 dispatch(getCampaignSpotPaymentedFail(error));
             });
     };

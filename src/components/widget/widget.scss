@@ -1,0 +1,246 @@
+.fllwr-widget-header {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.fllwr-widget-body {
+  padding: 20px;
+  padding-bottom: 0px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+.fllwr-widget-body-actions {
+  padding: 20px 10px;
+  margin-top: -80px;
+  background-color: #f2f2f2;
+  padding-bottom: 0px;
+  position: relative;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.fllwr-widget-body-actions-title {
+  font-size: 26px;
+  line-height: 1.23;
+  font-weight: bold;
+  text-align: center;
+}
+
+.fllwr-widget-body-actions-block {
+  max-width: 400px;
+}
+
+.fllwr-widget-body-actions-congrats-text {
+  font-size: 30px;
+  line-height: 1.23;
+  font-weight: bold;
+  text-align: center;
+}
+
+.fllwr-widget-body-actions-congrats-sub-text {
+  font-size: 14px;
+  line-height: 1.23;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.fllwr-widget-body-actions-dont-have-account {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.23;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+  cursor: pointer;
+}
+
+.fllwr-widget-body-actions-separate {
+  padding: 20px;
+  text-align: center;
+}
+
+.fllwr-widget-body-actions-separate-line {
+  margin: 3px;
+  background-color: #000;
+  width: 20px;
+  height: 1px;
+}
+
+.fllwr-widget-footer {
+  padding: 10px;
+  text-align: center;
+}
+
+.fllwr-widget-footer-text {
+  color: #000000;
+  opacity: 0.2;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.fllwr-widget-register-with-email {
+  margin-top: -45px;
+}
+
+.fllwr-widget-register-with-email-back-btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.fllwr-widget-register-with-email-back-btn-text {
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 7px;
+}
+
+.fllwr-widget-register-with-email-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.fllwr-widget-register-with-email-form {
+  padding: 15px;
+}
+
+/***** BUTTON *****/
+
+.fllwr-btn {
+  width: 100%;
+  padding: 15px 10px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  border-radius: 40px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  outline: none !important;
+}
+
+.fllwr-btn-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fllwr-btn-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 15px;
+  transition: all 300ms ease-in-out;
+}
+
+.fllwr-btn .svg-inline--fa {
+  transition: all 300ms ease-in-out;
+}
+
+.fllwr-btn:hover {
+  background-color: #000000;
+  border: solid 1px #000000;
+}
+
+.fllwr-btn:hover .fllwr-btn-title,
+.fllwr-btn:hover .svg-inline--fa {
+  color: #fff;
+}
+
+.fllwr-spotify-login-btn {
+  background-color: #1db955;
+  border: solid 1px #1db955;
+  transition: all 200ms ease-in-out;
+}
+
+.fllwr-spotify-login-btn .fllwr-btn-title,
+.fllwr-spotify-login-btn .svg-inline--fa {
+  color: #fff;
+}
+
+.fllwr-default-btn {
+  border: solid 1px #000000;
+  background-color: #f2f2f2;
+}
+
+.fllwr-submit-btn {
+  border: solid 1px #000000;
+  background-color: #000000;
+}
+
+.fllwr-submit-btn .fllwr-btn-title {
+  color: #fff;
+}
+
+/***** INPUT *****/
+
+.fllwr-input {
+  height: 50px;
+  border: none;
+  width: 100%;
+  padding: 0 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  outline: none !important;
+  border-radius: 40px;
+}
+
+.fllwr-input:focus,
+.fllwr-input:active,
+.fllwr-btn:focus,
+.fllwr-btn:active {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding-left: 10px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+.fllwr-input-group {
+  position: relative;
+}
+
+.fllwr-input-group .fllwr-input {
+  width: 50%;
+  padding-right: 10px;
+}
+
+.fllwr-input-group .fllwr-input:last-child {
+  left: 50%;
+  border-left: 1px solid #ddd;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.fllwr-input-block .svg-inline--fa {
+  position: absolute;
+  right: 20px;
+  top: 13px;
+}
+
+.fllwr-input-error {
+  font-style: italic;
+  color: #ff0000;
+  font-size: 13px;
+}
+.fllwr-input-error-container {
+  width: 100%;
+}
+
+@media (max-width: 500px) {
+  // .fllwr-widget-header {
+  //   height: 200px;
+  // }
+  .fllwr-widget-body-actions {
+    margin-top: -60px;
+  }
+  .fllwr-widget-body-actions-title {
+    font-size: 20px;
+  }
+  .fllwr-widget-body-actions-separate {
+    padding: 15px;
+  }
+}

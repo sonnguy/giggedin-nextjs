@@ -4,12 +4,17 @@ import CampaignDetail from "../../../src/pages/experience";
 import { getCampaignApi } from "../../../src/api/campaignApi";
 import { getImageUrl } from "../../../src/services/imageService";
 import { getSlugName } from "../../../src/services/utilsService";
+import Custom404 from '../../../src/pages/error/custom404'
+import LayoutError from "../../../src/components/layoutError";
 
 const ExperiencesDetailPage = (props) => {
   return (
-    <Layout header={props.header}>
-      <CampaignDetail {...props} />
-    </Layout>
+    // <Layout header={props.header} experience={props.experience}>
+    //   <CampaignDetail {...props} />
+    // </Layout>
+    <LayoutError>
+      <Custom404 />
+    </LayoutError>
   );
 };
 

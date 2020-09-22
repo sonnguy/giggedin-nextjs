@@ -14,10 +14,10 @@ const Footer = () => {
 				<img className="seperate-img" src={rectangle} alt="" />
 			</div>
 			<Row className="d-flex align-items-center">
-				<Col sm={12} lg={3} md={3} className="d-flex justify-content-center">
+				<Col xs={6} lg={3} md={3} className="d-flex justify-content-center">
 					<img src={footerImage} alt="" className="page-footer-img" />
 				</Col>
-				<Col sm={12} lg={9} md={9} className="border-bottom-cus pb-4">
+				<Col xs={6} lg={9} md={9} className="border-bottom-cus pb-4">
 					<Row>
 						<Col sm={12} lg={3} md={3} className="d-flex justify-content-center justify-content-md-start">
 							<div className="mb-3">
@@ -35,25 +35,29 @@ const Footer = () => {
 						</Col>
 						<Col
 							sm={12}
-							lg={3}
 							md={3}
+							lg={3}
 							className="d-flex justify-content-center justify-content-md-start pl-0"
 						>
 							<div>
 								<h6 className="page-footer__item__main-text font-weight-bold">Support</h6>
-								<Link href={{ pathname: '/about-us/[slug]' }} as={'/about-us/giggedin'}>
-									<a className="page-footer__item__sub-text">Contact Us</a>
-								</Link>
-								<Link href={{ pathname: '/about-us/[slug]' }} as={'/about-us/giggedin'}>
+								<a
+									target="_blank"
+									href="mailto:contact@giggedin.com"
+									className="page-footer__item__sub-text"
+								>
+									{'Contact Us'}
+								</a>
+								{/* <Link href={{ pathname: '/about-us/[slug]' }} as={'/about-us/giggedin'}>
 									<a className="page-footer__item__sub-text">SMS Support</a>
-								</Link>
+								</Link> */}
 							</div>
 						</Col>
 					</Row>
 				</Col>
 			</Row>
 			<Row>
-				<Col xs={6} lg={3} md={3} className="d-flex align-items-center justify-content-center">
+				<Col xs={6} md={3} lg={3} className="d-flex align-items-center justify-content-center">
 					{/* <Link href={'/about-us/giggedin'} className="page-footer__social-icon">
                             <FaIcon name="faFacebook" size={'sm'} color={'#ff4a32'} />
                         </Link>

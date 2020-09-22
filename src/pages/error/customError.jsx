@@ -8,8 +8,8 @@ import Router from 'next/router';
 
 class Custom404 extends React.Component {
     componentDidMount() {
-        Mixpanel.pageView("View_Exp_404");
-        GA.pageView();
+        // Mixpanel.pageView("View_Exp_404");
+        // GA.pageView();
     }
 
     goHome = () => {

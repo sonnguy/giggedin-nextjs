@@ -3,7 +3,6 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import CheckOutForm from './CheckoutForm';
 import LoginRegisterForm from './LoginRegisterForm';
-import { getCampaignCheckout } from '../../api/checkoutApi';
 import { getImageUrl } from '../../services/imageService';
 import ReactHtmlParser from 'react-html-parser';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -11,16 +10,27 @@ import Mixpanel from '../../tracking/mixpanel';
 import GA from '../../tracking/ga';
 import { withRouter } from 'next/router';
 import DOMPurify from 'isomorphic-dompurify';
+import { auth } from '../../api/spotifyApi';
+import { connect } from 'react-redux';
+import { setUserData } from '../../actions/userAction';
+import SpotifyLoginButton from '../../components/button/spotifyLoginButton';
+import {
+  authEndpoint,
+  clientId,
+  scopes,
+  redirectUri,
+} from "../../constants/spotifyConstants";
 
 class CheckOut extends React.Component {
   state = {
     step: 1,
     isLogedIn: false,
     selectedTier: [],
+    isFollowingSpot: false,
   };
 
   checkOutOnClick = () => {
-    Mixpanel.track("Click_SelectPackage");
+    Mixpanel.track('Click_SelectPackage');
     const { step } = this.state;
     if (step === 1) {
       this.setState({ step: step + 1 });
@@ -29,10 +39,10 @@ class CheckOut extends React.Component {
     }
   };
   componentDidMount() {
-    const ReactPixel = require('react-facebook-pixel').default;
-    ReactPixel.track('ViewContent', { page: 'Checkout_Page' });
-    Mixpanel.pageView("View_Exp_Packages");
-    GA.pageView();
+    // const ReactPixel = require('react-facebook-pixel').default;
+    // ReactPixel.track('ViewContent', { page: 'Checkout_Page' });
+    // Mixpanel.pageView('View_Exp_Packages');
+    // GA.pageView();
   }
 
   goToLogin = () => {
@@ -40,6 +50,47 @@ class CheckOut extends React.Component {
       step: 3,
     });
   };
+  loginSpotify = async () => {
+    const spotifyLoginWindow = window.open(
+      `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+        '%20'
+      )}&response_type=code&show_dialog=true`,
+      'Login with Spotify',
+      'width=800,height=600'
+    );
+    let timer = setInterval(() => {
+      if (spotifyLoginWindow.closed) {
+        clearInterval(timer);
+        const token = localStorage.getItem('SPOTIFY_CODE');
+        if (token) {
+          auth(token).then((response) => {
+            const { data = {} } = response;
+            if (data.success) {
+              const { user, jwt } = data;
+              this.props.setUserData({ user, token: jwt.token });
+              // this.getArtistFollow(jwt.token);
+            } else {
+              toast.error(data.message || 'Something went wrong.', {
+                containerId: 'Toast',
+              });
+            }
+          });
+        }
+      }
+    }, 1000);
+  };
+  // getArtistFollow = async (token) => {
+  //   const { experience } = this.props;
+  //   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  //   const response = await getFollowArtistApi(experience.id);
+  //   const { data = {} } = response;
+  //   if (data.success) {
+  //     this.setState({
+  //       isFollowingSpot: data.following,
+  //     });
+  //   } else {
+  //   }
+  // };
 
   gotoGuestPayment = () => {
     this.setState({
@@ -62,7 +113,7 @@ class CheckOut extends React.Component {
     this.setState({
       selectedTier: [...selectedTier, item],
     });
-    Mixpanel.track("Click_SelectPackage", { tier: item.id });
+    //Mixpanel.track('Click_SelectPackage', { tier: item.id });
   };
   onRemoveItem = (item) => {
     const { selectedTier } = this.state;
@@ -73,15 +124,36 @@ class CheckOut extends React.Component {
   };
 
   getTotalPrice = (selectedTier) => {
+    // const { isFollowingSpot = false } = this.state;
+    // if (
+    //   isFollowingSpot &&
+    //   selectedTier.length > 0 &&
+    //   !!selectedTier[0].following_checkout
+    // ) {
+    //   return 0;
+    // }
     return selectedTier.length > 0
       ? selectedTier.map((it) => it.price).reduce((a, b) => a + b) / 100
       : 0;
   };
+  renderLoginSpotify = () => {
+    const { step } = this.state;
+    const { user } = this.props;
+    if (step == 2 && !user) {
+      return (
+        <div className="text-center">
+          <SpotifyLoginButton onClick={this.loginSpotify} text="Login with Spotify" />
+        </div>
+      );
+    }
+  };
 
   render() {
     const { step, isLogedIn, selectedTier } = this.state;
-    const { experience } = this.props; 
-    const tiers = experience.tiers ? experience.tiers.sort((a, b) => a.price - b.price) : [];
+    const { experience } = this.props;
+    const tiers = experience.tiers
+      ? experience.tiers.sort((a, b) => a.price - b.price)
+      : [];
     return (
       <Container>
         <Row className="mt-5 pt-3">
@@ -133,6 +205,7 @@ class CheckOut extends React.Component {
             )}
 
             <div className="mt-3">
+              {/* {this.renderLoginSpotify()} */}
               {step === 2 && (
                 <CheckOutForm
                   experience={experience}
@@ -160,9 +233,9 @@ class CheckOut extends React.Component {
                     <div className="checkout-summary__item py-3">
                       <div className="d-flex justify-content-between align-items-center w-100">
                         <div className="summary-item-text">{item.name}</div>
-                        <div className="summary-item-price">{`$${
-                          item.price / 100
-                          }`}</div>
+                        <div className="summary-item-price">
+                          {`$${item.price / 100}`}
+                        </div>
                       </div>
                     </div>
                     <div className="separate-line"></div>{' '}
@@ -231,9 +304,9 @@ const RewardItem = ({ selected, experience, onAddItem, onRemoveItem }) => {
           className="checkout-body__reward-item__info p-4"
         >
           {!selected && (
-            <div
-              className={'price_item summary-item-price total-price p-4'}
-            >{`$${experience.price / 100}`}</div>
+            <div className={'price_item summary-item-price total-price p-4'}>
+              {`$${experience.price / 100}`}
+            </div>
           )}
 
           <div className="reward-item-main-info w-75">
@@ -260,7 +333,11 @@ const RewardItem = ({ selected, experience, onAddItem, onRemoveItem }) => {
               <Row>
                 <Col xs={12}>
                   <div className="reward-includes-sub-text">
-                    <div>{ReactHtmlParser(DOMPurify.sanitize(experience.tier_includes))}</div>
+                    <div>
+                      {ReactHtmlParser(
+                        DOMPurify.sanitize(experience.tier_includes)
+                      )}
+                    </div>
                   </div>
                 </Col>
               </Row>
@@ -284,5 +361,16 @@ const RewardItem = ({ selected, experience, onAddItem, onRemoveItem }) => {
     </Col>
   );
 };
+const mapStateToProps = (state) => ({
+  token: state.user.token,
+  user: state.user.user,
+});
 
-export default withRouter(CheckOut);
+const mapDispatchToProps = {
+  setUserData,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CheckOut));

@@ -1,10 +1,28 @@
-import React from 'react';
-import { Col, Form, Button } from 'react-bootstrap';
-import './style.scss';
-import { setUserData } from '../../actions/userAction';
-import { connect } from 'react-redux';
-import { loginApi, registerApi } from '../../api/userApi';
-import { toast } from 'react-toastify';
+import React from "react";
+import { Col, Form, Button } from "react-bootstrap";
+import "./style.scss";
+import { setUserData } from "../../actions/userAction";
+import { connect } from "react-redux";
+import { loginApi, registerApi, loginFacebook, updateUserEmailApi } from "../../api/userApi";
+import { toast } from "react-toastify";
+import SpotifyLoginButton from "../button/spotifyLoginButton";
+import { auth } from "../../api/spotifyApi";
+import {
+  authEndpoint,
+  clientId,
+  scopes,
+  redirectUri,
+} from "../../constants/spotifyConstants";
+import OrSeparateLine from "./orSeparateLine";
+import {
+  authEndpointTwitch,
+  clientIdTwitch,
+  redirectUriTwitch,
+  scopesTwitch,
+} from "../../constants/twitchConstants";
+import FBLoginButton from "../button/FBLoginButton";
+import { appId } from "../../constants/facebookConstants";
+import Link from 'next/link';
 
 class LoginForm extends React.Component {
   state = {
@@ -12,20 +30,33 @@ class LoginForm extends React.Component {
     loginValidated: false,
     registerValidated: false,
     loading: false,
+    showAskEmail: false,
     loginFields: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     registerFields: {
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: '',
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: "",
     },
   };
+  componentDidMount() {
+    const scriptFacebook = document.createElement("script");
+    scriptFacebook.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${appId}`;
+    scriptFacebook.async = true;
+    scriptFacebook.defer = true;
+    scriptFacebook.crossorigin = "anonymous";
+    document.body.appendChild(scriptFacebook);
+  }
 
   goToRegister = () => {
     this.setState({ isRegister: true });
+  };
+
+  goToLogin = () => {
+    this.setState({ isRegister: false });
   };
 
   handleInputChange = (event) => {
@@ -42,6 +73,93 @@ class LoginForm extends React.Component {
     } else {
       this.setState({ loginFields: fields });
     }
+  };
+
+  loginSpotify = async () => {
+    const spotifyLoginWindow = window.open(
+      `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+        "%20"
+      )}&response_type=code&show_dialog=true`,
+      "Login with Spotify",
+      "width=800,height=600"
+    );
+    let timer = setInterval(() => {
+      if (spotifyLoginWindow.closed) {
+        clearInterval(timer);
+        const token = localStorage.getItem("SPOTIFY_CODE");
+        if (token) {
+          auth(token).then((response) => {
+            const { data = {} } = response;
+            if (data.success) {
+              const { user, jwt } = data;
+              this.props.setUserData({ user, token: jwt.token });
+              if (!user.email) {
+                this.setState({ showAskEmail: true });
+              } else {
+                this.props.onSuccess();
+              }
+            } else {
+              toast.error(data.message || "Something went wrong.", {
+                containerId: "Toast",
+              });
+            }
+          });
+        }
+      }
+    }, 1000);
+  };
+
+  updateEmail = async (event) => {
+    const form = event.currentTarget;
+    event.preventDefault();
+    this.setState({ loginValidated: true });
+    if (form.checkValidity() === true) {
+      updateUserEmailApi(this.state.loginFields.email).then((res) => {
+        const { data = {} } = res;
+        if (data.success) {
+          this.props.onSuccess();
+        } else {
+          toast.error(
+            "The email address already exists for another account. Please input new email...",
+            { containerId: "Toast" }
+          );
+        }
+      }, () => {
+        toast.error(data.message || "Something went wrong.", {
+          containerId: "Toast",
+        });
+      });
+    }
+  }
+
+  loginTwitch = async () => {
+    const twitchLoginWindow = window.open(
+      `${authEndpointTwitch}?client_id=${clientIdTwitch}&redirect_uri=${redirectUriTwitch}&scope=${scopesTwitch.join(
+        "%20"
+      )}&response_type=code&show_dialog=true`,
+      "Login with Twitch",
+      "width=800,height=600"
+    );
+    let timer = setInterval(() => {
+      if (twitchLoginWindow.closed) {
+        clearInterval(timer);
+        const token = localStorage.getItem("SPOTIFY_CODE");
+        if (token) {
+          auth(token).then((response) => {
+            const { data = {} } = response;
+            if (data.success) {
+              const { user, jwt } = data;
+              this.props.setUserData({ user, token: jwt.token });
+              this.props.onSuccess();
+            } else {
+              toast.error(data.message || "Something went wrong.", {
+                containerId: "Toast",
+              });
+            }
+          });
+        }
+      }
+    }, 1000);
   };
 
   onLoginSubmit = async (event) => {
@@ -61,21 +179,39 @@ class LoginForm extends React.Component {
             this.props.onSuccess();
           } else {
             toast.error(
-              'The email address or password is incorrect. Please retry...',
-              { containerId: 'Toast' }
+              "The email address or password is incorrect. Please retry...",
+              { containerId: "Toast" }
             );
           }
         })
         .catch((error) => {
           this.setState({ loading: false });
           toast.error(
-            'The email address or password is incorrect. Please retry...',
-            { containerId: 'Toast' }
+            "The email address or password is incorrect. Please retry...",
+            { containerId: "Toast" }
           );
         });
     }
   };
+  loginFacebook = () => {
+    this.setState({ loading: true });
 
+    FB.login(
+      (res) => {
+        const { authResponse = {} } = res;
+        loginFacebook(authResponse.accessToken).then((res) => {
+          this.setState({ loading: false });
+          const { data = {} } = res;
+          if (data.success) {
+            const { user, jwt } = data;
+            this.props.setUserData({ user, token: jwt.token });
+            this.props.onSuccess();
+          }
+        });
+      },
+      { scope: "public_profile,email" }
+    );
+  };
   onRegisterSubmit = async (event) => {
     const registerForm = event.currentTarget;
     event.preventDefault();
@@ -102,15 +238,17 @@ class LoginForm extends React.Component {
             this.props.setUserData({ user, token: jwt.token });
             this.props.onSuccess();
           } else {
-            toast.error('Something went wrong please try again', { containerId: 'Toast' });
+            toast.error("Something went wrong please try again", {
+              containerId: "Toast",
+            });
           }
         })
         .catch((error) => {
           this.setState({ loading: false });
           const { email } = error.response.data.errors;
-          email.forEach(item => {
+          email.forEach((item) => {
             toast.error(item, {
-              containerId: 'Toast',
+              containerId: "Toast",
             });
           });
         });
@@ -119,24 +257,70 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <>
-        {!this.state.isRegister && (
+      <div className="login-form">
+        {this.state.showAskEmail && (
           <Form
             noValidate
             validated={this.state.loginValidated}
-            onSubmit={this.onLoginSubmit}
-            className="login-form"
+            onSubmit={this.updateEmail}
           >
             <Form.Row>
               <Col xs={12} sm={12}>
                 <div
-                  className={`${
-                    this.props.border ? 'border' : ''
+                  className={`${this.props.border ? "border" : ""
                     } login-container p-4`}
                 >
-                  <h4 className="login-container-body__title mb-4">
-                    {'Login'}
-                  </h4>
+                  <h5 className="not-have-account-text">
+                    {"Your spotify account didn't have email value, please input your email to complete."}
+                  </h5>
+                  <Form.Group controlId="formEmail" className="form-item">
+                    <Form.Control
+                      required
+                      size="lg"
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                      onChange={this.handleInputChange}
+                      value={this.state.loginFields.email}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {"Email not valid."}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Button
+                    disabled={this.state.loading}
+                    type="submit"
+                    variant="dark"
+                    className="w-100 default-btn btn-p15 mt-3"
+                  >
+                    {"SUBMIT"}
+                  </Button>
+                </div>
+              </Col>
+            </Form.Row>
+          </Form>
+        )}
+        {!this.state.isRegister && !this.state.showAskEmail && (
+          <Form
+            noValidate
+            validated={this.state.loginValidated}
+            onSubmit={this.onLoginSubmit}
+          >
+            <Form.Row>
+              <Col xs={12} sm={12}>
+                <div
+                  className={`${this.props.border ? "border" : ""
+                    } login-container p-4`}
+                >
+                  <div className="d-flex justify-content-between align-items-end mb-4">
+                    <h4 className="login-container-body__title mb-0">
+                      {"Login"}
+                    </h4>
+                    <Link href={'/forgotpassword'}>
+                      <a className="forgot-password-text">Forgot password?</a>
+                    </Link>
+                  </div>
+
                   <Form.Group controlId="formBasicEmail" className="form-item">
                     <Form.Control
                       required
@@ -148,7 +332,7 @@ class LoginForm extends React.Component {
                       value={this.state.loginFields.email}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {'Email not valid.'}
+                      {"Email not valid."}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group
@@ -165,7 +349,7 @@ class LoginForm extends React.Component {
                       value={this.state.loginFields.password}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {'Password cannot be empty.'}
+                      {"Password cannot be empty."}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Button
@@ -174,25 +358,41 @@ class LoginForm extends React.Component {
                     variant="dark"
                     className="w-100 default-btn btn-p15 mt-3"
                   >
-                    {'LOGIN'}
+                    {"LOGIN"}
                   </Button>
                   <div className="text-center mt-4">
                     <h5 className="not-have-account-text">
-                      {'Not registered?'}{' '}
+                      {"Not registered?"}{" "}
                       <span
                         className="register-link"
                         onClick={this.goToRegister}
                       >
-                        {'Create an account'}
+                        {"Create an account"}
                       </span>
                     </h5>
                   </div>
+                  <OrSeparateLine />
+                  <SpotifyLoginButton
+                    onClick={this.loginSpotify}
+                    text="Login with Spotify"
+                    className="w-100"
+                  />
+                  {/* <TwitchLoginButton
+                    onClick={this.loginTwitch}
+                    text="Login with Twitch"
+                    className="w-100"
+                  /> */}
+                  <FBLoginButton
+                    onClick={this.loginFacebook}
+                    text="Login with Facebook"
+                    className="w-100"
+                  />
                 </div>
               </Col>
             </Form.Row>
           </Form>
         )}
-        {this.state.isRegister && (
+        {this.state.isRegister && !this.state.showAskEmail && (
           <Form
             noValidate
             validated={this.state.registerValidated}
@@ -201,14 +401,13 @@ class LoginForm extends React.Component {
             <Form.Row>
               <Col xs={12} sm={12}>
                 <div
-                  className={`${
-                    this.props.border ? 'border' : ''
-                    } regiser-account-container p-4`}
+                  className={`${this.props.border ? "border" : ""
+                    } register-account-container p-4`}
                 >
                   <h4 className="login-container-body__title mb-4">
                     {this.props.isLoginModal
-                      ? 'Create an account to be reminded'
-                      : 'Create an account'}
+                      ? "Create an account to be reminded"
+                      : "Create an account"}
                   </h4>
                   <Form.Group controlId="formBasicEmail" className="form-item">
                     <Form.Control
@@ -221,7 +420,7 @@ class LoginForm extends React.Component {
                       value={this.state.registerFields.firstName}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {'First name is requeired.'}
+                      {"First name is requeired."}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group
@@ -238,7 +437,7 @@ class LoginForm extends React.Component {
                       value={this.state.registerFields.lastName}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {'Last name is requeired.'}
+                      {"Last name is requeired."}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group
@@ -255,7 +454,7 @@ class LoginForm extends React.Component {
                       value={this.state.registerFields.email}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {'Email not valid.'}
+                      {"Email not valid."}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group
@@ -272,7 +471,7 @@ class LoginForm extends React.Component {
                       value={this.state.registerFields.password}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {'Password cannot be empty.'}
+                      {"Password cannot be empty."}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Button
@@ -281,14 +480,22 @@ class LoginForm extends React.Component {
                     variant="dark"
                     className="w-100 default-btn btn-p15 mt-3"
                   >
-                    {'CREATE ACCOUNT'}
+                    {"CREATE ACCOUNT"}
                   </Button>
+                  <div className="text-center mt-4">
+                    <h5 className="not-have-account-text">
+                      {"Already got an account?"}{" "}
+                      <span className="register-link" onClick={this.goToLogin}>
+                        {"Login Now"}
+                      </span>
+                    </h5>
+                  </div>
                 </div>
               </Col>
             </Form.Row>
           </Form>
         )}
-      </>
+      </div>
     );
   }
 }

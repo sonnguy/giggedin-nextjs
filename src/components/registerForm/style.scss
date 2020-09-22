@@ -1,0 +1,36 @@
+.login-form {
+    .not-have-account-text {
+        font-size: 13px;
+        font-weight: 600;
+        .register-link {
+            color: #ff4a32;
+            cursor: pointer;
+        }
+    }
+
+    .register-account-container,
+    .login-container {
+        &.border {
+            border: solid 1px #ffdad7 !important;
+            height: 100%;
+        }
+    }
+}
+.or-separate-line {
+    position: relative;
+    &__line {
+        position: absolute;
+        top: calc(50% + 2px);
+        height: 1px;
+        background-color: #ddd;
+        width: 100%;
+        z-index: 1;
+    }
+    &__text {
+        position: relative;
+        z-index: 10;
+        background-color: #fff;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}

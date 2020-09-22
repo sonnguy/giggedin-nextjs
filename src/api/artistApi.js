@@ -1,13 +1,22 @@
 import api from './index';
-
-const getArtistsApi = () => {
-    return api.get('/artist/list');
-};
+import { authHeader } from '../services/apiService';
 
 const getArtistApi = (id) => {
-    return api.get(`/artist/${id}`);
+  return api.get(`/artist/${id}`);
 };
 
-export {
-    getArtistApi,
-}
+const getFollowArtistApi = (id) => {
+  const requestOptions = {
+    headers: authHeader(),
+  };
+  return api.get(`spotify/following/${id}`, requestOptions);
+};
+
+const spotifyFollowingApi = (id) => {
+  const requestOptions = {
+    headers: authHeader(),
+  };
+  return api.post(`/spotify/doFollow/${id}`, {}, requestOptions);
+};
+
+export { getArtistApi, getFollowArtistApi, spotifyFollowingApi };

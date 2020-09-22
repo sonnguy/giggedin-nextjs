@@ -1,4 +1,39 @@
 .home-page {
+    &__intro {
+        &__image {
+            .intro-img {
+                width: 90%;
+                &.br-50 {
+                    border-radius: 50%;
+                }
+            }
+            &.right-side {
+                .lazy-load-image-background {
+                    display: flex !important;
+                    justify-content: flex-end;
+                }
+            }
+        }
+        &__text {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            &__title {
+                color: #5e5e5e;
+                font-size: 30px;
+                line-height: 1.125;
+                font-weight: bolder;
+                margin-bottom: 20px;
+            }
+            &__des {
+                color: #a1a1a1;
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+        }
+    }
+
     &__support-act {
         border: 10px solid #fff;
 

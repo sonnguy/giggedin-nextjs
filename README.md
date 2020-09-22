@@ -1,42 +1,25 @@
-# Next.js with react-bootstrap example
+# Experience Frontend
 
-This example shows how to use Next.js along with [react-bootstrap](https://react-bootstrap.github.io/).
+Steps to run project.
 
-## Deploy your own
+  - Install [Node.js](https://nodejs.org/) on your local machine
 
-Deploy the example using [Vercel](https://vercel.com):
+## Running locally in development mode
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/with-react-bootstrap)
+To get started, just clone the repository and run `npm install or yarn && npm run dev or yarn dev`:
 
-## How to use
+    git clone https://github.com/giggedin/dare.git
+    npm install or yarn
+    npm run dev or yarn dev 
 
-### Using `create-next-app`
+## Building and deploying in production
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+If you wanted to run this site in production, you should install modules then build the site with `npm run build or yarn build` and run it with `npm start or yarn start`:
 
-```bash
-npx create-next-app --example with-react-bootstrap with-react-bootstrap-app
-# or
-yarn create next-app --example with-react-bootstrap with-react-bootstrap-app
-```
+    npm install or yarn
+    npm run build or yarn build
+    npm start or yarn start
 
-### Download manually
+Notice: Do not remove comments which start with ```// TODO: ...```. Please resolve the issue, mark as resolved on repo and remove later
 
-Download the example:
-
-```bash
-curl https://codeload.github.com/vercel/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-react-bootstrap
-cd with-react-bootstrap
-```
-
-Install it and run:
-
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Updating . . .

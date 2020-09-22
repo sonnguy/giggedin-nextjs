@@ -13,32 +13,37 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../src/actions/userAction';
 import { hotjar } from 'react-hotjar';
+import TagManager from 'react-gtm-module';
 
 config.autoAddCss = false;
+const tagManagerArgs = {
+	gtmId: 'GTM-NW4FF6R'
+}
 
-const MIXPANEL_ID = process.env.REACT_APP_TREACT_APP_TRACKING_ENV === 'production' ? '6dd7ee06cf30e0bd746184fcbc4c6337' : '021202afd67fb4792b7e8ad586898cea';
+// const MIXPANEL_ID = process.env.REACT_APP_TREACT_APP_TRACKING_ENV === 'production' ? '6dd7ee06cf30e0bd746184fcbc4c6337' : '021202afd67fb4792b7e8ad586898cea';
 
-Mixpanel.init(MIXPANEL_ID, { debug: process.env.REACT_APP_TREACT_APP_TRACKING_ENV !== 'production', });
+// Mixpanel.init(MIXPANEL_ID, { debug: process.env.REACT_APP_TREACT_APP_TRACKING_ENV !== 'production', });
 
-ReactGA.initialize('UA-31833111-7', {
-	debug: process.env.REACT_APP_TREACT_APP_TRACKING_ENV !== 'production',
-	gaOptions: {
-		cookieDomain: 'auto',
-		allowLinker: true,
-	},
-});
+// ReactGA.initialize('UA-31833111-7', {
+// 	debug: process.env.REACT_APP_TREACT_APP_TRACKING_ENV !== 'production',
+// 	gaOptions: {
+// 		cookieDomain: 'auto',
+// 		allowLinker: true,
+// 	},
+// });
 
 
 const WrappedApp = ({ Component, pageProps }) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const ReactPixel = require('react-facebook-pixel').default;
-		ReactPixel.init('1698442107043541', {}, {
-			autoConfig: true,
-			debug: false,
-		});
-		hotjar.initialize(626795, 6);
+		TagManager.initialize(tagManagerArgs);
+		// const ReactPixel = require('react-facebook-pixel').default;
+		// ReactPixel.init('1698442107043541', {}, {
+		// 	autoConfig: true,
+		// 	debug: false,
+		// });
+		// hotjar.initialize(626795, 6);
 		const user = getUserDateFromStrorage();
 		if (user) {
 			dispatch(setUserData(user));

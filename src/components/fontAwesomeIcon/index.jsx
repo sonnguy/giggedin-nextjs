@@ -28,7 +28,8 @@ import {
   faFireAlt,
   faCheckCircle,
   faCopy,
-  faShareAlt
+  faShareAlt,
+  faLongArrowAltLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -42,6 +43,7 @@ import {
   faSpotify,
   faSoundcloud,
   faYoutube,
+  faTwitch
 } from '@fortawesome/free-brands-svg-icons';
 
 const icons = {
@@ -82,7 +84,9 @@ const icons = {
   faFireAlt,
   faCheckCircle,
   faCopy,
-  faShareAlt
+  faShareAlt,
+  faTwitch,
+  faLongArrowAltLeft
 };
 
 class FaIcon extends React.Component {

@@ -3,7 +3,7 @@ import './style.scss';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import upcomingExperienceImage from '../../../public/images/upcoming-experience.png';
 import CountDownTime from '../../components/countDownTime/CountDownTime';
-import supportact from '../../../public/images/support-act.png';
+import supportact from '../../../public/images/support-black.png';
 import arrow from '../../../public/images/home-arrow-right.png';
 import horiline from '../../../public/images/hori-line.png';
 import { fullDate, getSlugName } from '../../services/utilsService';
@@ -18,24 +18,103 @@ import WingLine from '../../components/common/wingLine';
 const Home = ({ experience }) => {
 
     const goToCampaign = () => {
+        // let path = `/jimmy`;
+        // Router.push({ pathname: path });
         const slug = `${getSlugName(experience.name)}-${getSlugName(experience.headline)}-${experience.id}`;
         let path = `/experience/[slug]`;
         Router.push({ pathname: path }, `/experience/${slug}`);
+
     };
 
     const spots_unlimited = experience.spots_unlimited === 1;
 
     useEffect(() => {
-        const ReactPixel = require('react-facebook-pixel').default;
-        ReactPixel.track('ViewContent', { page: 'Exp_Homepage' });
-        Mixpanel.pageView('View_Exp_Homepage');
-        GA.pageView();
+        // const ReactPixel = require('react-facebook-pixel').default;
+        // ReactPixel.track('ViewContent', { page: 'Exp_Homepage' });
+        // Mixpanel.pageView('View_Exp_Homepage');
+        // GA.pageView();
     }, []);
 
     return (
         experience && (
-            <>
-                <div className="home-page h-auto background-image-responsive" style={{
+            <div className="home-page">
+                {/* <div className="home-page__intro">
+                    <Container className="py-5">
+                        <Row>
+                            <Col xs={12} sm={6} md={5} className="home-page__intro__image pl-sm-0">
+                                <LazyLoadImage
+                                    alt={'support-act'}
+                                    effect="blur"
+                                    src={'https://fllw.co/assets/images/image02.jpg?v39381655320061'}
+                                    placeholderSrc={'https://fllw.co/assets/images/image02.jpg?v39381655320061'}
+                                    className="intro-img br-50"
+                                />
+                            </Col>
+                            <Col xs={12} sm={6} md={7} className="home-page__intro__text">
+                                <div className="home-page__intro__text__title">
+                                    {'GROW THE PLATFORMS THAT FIT YOUR STRATEGY'}
+                                </div>
+                                <div className="home-page__intro__text__des">
+                                    {'Grow your community in the platform of your choice so you have full control.'}
+                                </div>
+                                <div className="home-page__intro__text__des">
+                                    {'Currently supporting Spotify, Twitch and YouTube.'}
+                                </div>
+                            </Col>
+                        </Row>
+                        <div className="d-flex justify-content-center my-5">
+                            <div className="separate-line-width-300"></div>
+                        </div>
+                        <Row>
+                            <Col xs={12} sm={6} md={7} className="home-page__intro__text">
+                                <div className="home-page__intro__text__title">
+                                    {'GROW THE PLATFORMS THAT FIT YOUR STRATEGY'}
+                                </div>
+                                <div className="home-page__intro__text__des">
+                                    {'Grow your community in the platform of your choice so you have full control.'}
+                                </div>
+                                <div className="home-page__intro__text__des">
+                                    {'Currently supporting Spotify, Twitch and YouTube.'}
+                                </div>
+                            </Col>
+                            <Col xs={12} sm={6} md={5} className="home-page__intro__image right-side pl-sm-0">
+                                <LazyLoadImage
+                                    alt={'support-act'}
+                                    effect="blur"
+                                    src={'https://fllw.co/assets/images/image01.jpg?v39381655320061'}
+                                    placeholderSrc={'https://fllw.co/assets/images/image01.jpg?v39381655320061'}
+                                    className="intro-img br-50"
+                                />
+                            </Col>
+                        </Row>
+                        <div className="d-flex justify-content-center my-5">
+                            <div className="separate-line-width-300"></div>
+                        </div>
+                        <Row>
+                            <Col xs={12} sm={6} className="home-page__intro__image right-side pl-sm-0">
+                                <LazyLoadImage
+                                    alt={'support-act'}
+                                    effect="blur"
+                                    src={'https://fllw.co/assets/images/image05.jpg?v39381655320061'}
+                                    placeholderSrc={'https://fllw.co/assets/images/image05.jpg?v39381655320061'}
+                                    className="intro-img"
+                                />
+                            </Col>
+                            <Col xs={12} sm={6} className="home-page__intro__text">
+                                <div className="home-page__intro__text__title text-center">
+                                    {'GROW THE PLATFORMS THAT FIT YOUR STRATEGY'}
+                                </div>
+                                <div className="home-page__intro__text__des text-center">
+                                    {'Grow your community in the platform of your choice so you have full control.'}
+                                </div>
+                                <div className="home-page__intro__text__des text-center">
+                                    {'Currently supporting Spotify, Twitch and YouTube.'}
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div> */}
+                <div className="h-auto background-image-responsive" style={{
                     backgroundImage: `url('${bgImage}')`
                 }}>
                     <Container className="pb-5">
@@ -50,13 +129,13 @@ const Home = ({ experience }) => {
                         </div>
                         <Row className="mb-5 pb-5">
                             <Col xs={12} md={6} className="pr-md-0 mt-5 mt-md-0">
-                                <LazyLoadImage
+                                {/* <LazyLoadImage
                                     alt={'support-act'}
                                     effect="blur"
                                     src={supportact}
                                     placeholderSrc={supportact}
                                     className="support-act-img"
-                                />
+                                /> */}
                                 <div className="home-page__support-act p-3 p-sm-5">
                                     <div className="home-page__support-act__artist-name mt-4">{experience.name}</div>
                                     <div className="home-page__support-act__campaign-name mt-1">{experience.headline}</div>
@@ -90,11 +169,11 @@ const Home = ({ experience }) => {
                                 </div>
                             </Col>
                             <Col xs={12} md={6} className="mt-3 mt-md-0">
-                                <div className="start-campaign d-flex pl-4">
+                                {/* <div className="start-campaign d-flex pl-4">
                                     <div className="start-campaign__content pb-5">
                                         <Image src={horiline} className="start-campaign-hori-line" />
                                         <div className="start-campaign__content__des ml-4 pl-2">
-                                            {`“Can’t wait for this super fun night and to see you all” - Ali Barter`}
+                                            {`“Can’t wait for this super fun night and to see you all” - Jimmy Banner`}
                                         </div>
                                         <div
                                             onClick={goToCampaign}
@@ -104,7 +183,7 @@ const Home = ({ experience }) => {
                                             <Image src={arrow} className="start-campaign-img ml-4" />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </Col>
                         </Row>
                     </Container>
@@ -157,7 +236,7 @@ const Home = ({ experience }) => {
                         </Row>
                     </Container>
                 </div>
-            </>
+            </div>
         )
     );
 };

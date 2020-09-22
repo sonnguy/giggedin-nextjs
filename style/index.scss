@@ -41,8 +41,19 @@ a {
     }
 }
 
+.btn-with-icon {
+    .svg-inline--fa {
+        margin-right: 10px;
+    }
+}
+
 .separate-line {
     border-bottom: solid 1px #ffdad7;
+}
+
+.separate-line-width-300 {
+    border-bottom: solid 4px #ffdad7;
+    width: 300px;
 }
 
 .form-control-lg {

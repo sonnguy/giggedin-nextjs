@@ -18,6 +18,10 @@ app.prepare().then(async () => {
         return await app.render(req, res, '/about-us', { slug: req.params.slug });
     });
 
+    server.get('/spotify/[callback]', async (req, res) => {
+        return await app.render(req, res, '/spotify', { slug: req.params.callback });
+    });
+
     server.get('*', async (req, res) => {
         return await handle(req, res)
     });

@@ -21,11 +21,11 @@ const Confirmation = ({ experience }) => {
   const [hostName, setHotName] = useState("");
 
   useEffect(() => {
-    const ReactPixel = require("react-facebook-pixel").default;
-    ReactPixel.track("Purchase", { page: "Confirmation_Page" });
-    Mixpanel.pageView("View_Exp_ConfirmationPage");
-	GA.pageView();
-	
+    //   const ReactPixel = require("react-facebook-pixel").default;
+    //   ReactPixel.track("Purchase", { page: "Confirmation_Page" });
+    //   Mixpanel.pageView("View_Exp_ConfirmationPage");
+    // GA.pageView();
+
     setHotName(window.location.origin);
     const { artists } = experience;
     setArtirst(artists[0]);

@@ -6,7 +6,7 @@ import GA from '../../tracking/ga';
 import Router from 'next/router';
 import { getSlugName } from '../../services/utilsService';
 
-const Experiences = ({experiences}) => {
+const Experiences = ({ experiences }) => {
 
     const goToCampaign = (campaign) => {
         const slug = `${getSlugName(campaign.name)}-${getSlugName(campaign.headline)}-${campaign.id}`;
@@ -15,10 +15,10 @@ const Experiences = ({experiences}) => {
     }
 
     useEffect(() => {
-        const ReactPixel = require('react-facebook-pixel').default;
-        ReactPixel.track('ViewContent', { page: 'Experiences_Page' });
-        Mixpanel.pageView("View_Exp_Experiences");
-        GA.pageView();
+        // const ReactPixel = require('react-facebook-pixel').default;
+        // ReactPixel.track('ViewContent', { page: 'Experiences_Page' });
+        // Mixpanel.pageView("View_Exp_Experiences");
+        // GA.pageView();
     }, [])
 
     return (

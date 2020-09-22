@@ -1,0 +1,43 @@
+.spotify-login-btn {
+  background-color: #1db954;
+  border: solid 1px #1db954;
+  position: relative;
+  &__title {
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .svg-inline--fa {
+    position: absolute;
+    left: 15px;
+  }
+}
+.twitch-login-btn {
+  background-color: #6441a5;
+  border: solid 1px #6441a5;
+  position: relative;
+  &__title {
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .svg-inline--fa {
+    position: absolute;
+    left: 15px;
+  }
+}
+.facebook-login-btn {
+  background-color: #4267b2;
+  border: solid 1px #4267b2;
+  position: relative;
+  &__title {
+    font-weight: 600;
+   
+  }
+
+  .svg-inline--fa {
+    position: absolute;
+    left: 15px;
+  }
+
+}

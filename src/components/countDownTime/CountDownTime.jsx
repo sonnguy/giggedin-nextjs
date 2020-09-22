@@ -3,18 +3,18 @@ import Countdown from 'react-countdown';
 import './style.scss'
 
 const CountDownTime = (props) => {
-    const { end } = props;
+    const { end, isPaid } = props;
     const timeCountDown = new Date(end * 1000);
-    const Completionist = () => <div className="campaign-close-text">Campaign have been closed</div>;
+    const Completion = () => <div className="campaign-close-text">This Experience has passed</div>;
 
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
         if (completed) {
-            return <Completionist />;
+            return <Completion />;
         } else {
             return (
                 <div className="banner-countdown-timer">
-                    <div className="d-flex d-flex-row justify-content-between">
-                        <div className="banner-countdown-timer__item">
+                    <div className={`d-flex d-flex-row ${isPaid ? "justify-content-center" : "justify-content-between"}`}>
+                        <div className={`banner-countdown-timer__item ${isPaid && "is-paid"}`}>
                             <div className="big-number active">
                                 {days}
                             </div>
@@ -22,7 +22,7 @@ const CountDownTime = (props) => {
                                 {'Days'}
                             </div>
                         </div>
-                        <div className="banner-countdown-timer__item">
+                        <div className={`banner-countdown-timer__item ${isPaid && "is-paid"}`}>
                             <div className="big-number">
                                 {hours}
                             </div>
@@ -30,7 +30,7 @@ const CountDownTime = (props) => {
                                 {'Hours'}
                             </div>
                         </div>
-                        <div className="banner-countdown-timer__item">
+                        <div className={`banner-countdown-timer__item ${isPaid && "is-paid"}`}>
                             <div className="big-number">
                                 {minutes}
                             </div>
@@ -38,7 +38,7 @@ const CountDownTime = (props) => {
                                 {'Mins'}
                             </div>
                         </div>
-                        <div className="banner-countdown-timer__item">
+                        <div className={`banner-countdown-timer__item ${isPaid && "is-paid"}`}>
                             <div className="big-number">
                                 {seconds}
                             </div>

@@ -5,7 +5,7 @@ import { getCampaignApi } from '../src/api/campaignApi';
 const HomePage = (props) => {
   return (
     <Layout>
-      <Home {...props}/>
+      <Home {...props} />
     </Layout>
   );
 };
