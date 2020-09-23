@@ -13,28 +13,32 @@ const BannerHome = () => {
   return (
     <div className="banner d-flex align-items-center justify-content-between flex-column banner-home pb-0">
       <Container className="text-center banner-home-container">
-        <div className="banner-home-text-block">
-          <div className="banner-home-text">
-            Bringing{" "}
-            <span className="banner-home-text-bolder">
-              Artists <WingLine />
-            </span>{" "}
+        <div className="banner-home-container__block d-flex justify-content-end flex-column">
+          <div className="banner-home-text-block">
+            <div className="banner-home-text">
+              Bringing{" "}
+              <span className="banner-home-text-bolder">
+                Artists <WingLine />
+              </span>{" "}
             &{" "}
-            <span className="banner-home-text-bolder">
-              Fans <WingLine />
-            </span>{" "}
+              <span className="banner-home-text-bolder">
+                Fans <WingLine />
+              </span>{" "}
             closer together
           </div>
+          </div>
+          <div className="banner-home-sub-title my-3 my-sm-5">
+            {
+              "We help Artists and their teams run Virtual Events on the GiggedIn Experience platform "
+            }
+          </div>
         </div>
-        <div className="banner-home-sub-title my-3 my-sm-5">
-          {
-            "GiggedIn Experience is a platform that helps Artists and their teams run Virtual Events & Experiences."
-          }
-        </div>
-        <div className="banner-home-sub-des">
-          {
-            "From live streamed performances, to fan Q&A’s and interactive trivia nights - the Experience platform is customisable to help artists engage fans and achieve any objective"
-          }
+        <div className="banner-home-container__block d-flex justify-content-center flex-column">
+          <div className="banner-home-sub-title-small-text">
+            {
+              "Get in touch if you’d like to work with us"
+            }
+          </div>
         </div>
       </Container>
       <Image

@@ -28,6 +28,7 @@ import VimeoLogo from "../../../public/images/vimeo-logo.png";
 import "./style.scss";
 import { checkCampaignPaidApi } from "../../api/campaignApi";
 import { claimEvent } from "../../api/checkoutApi";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 var CLIENT_ID =
   "436263204673-e2i88hjktq7anm3qibcutru8pjddmdra.apps.googleusercontent.com";
 var API_KEY = "AIzaSyCeSssRzeiG8hpQuKYCTD3fNRPDmfg4Wuw";
@@ -288,11 +289,18 @@ const BannerDefault = ({ experience, copyUrl, goToCheckout }) => {
   return (
     <Row>
       <Col xs={12} sm={12} md={7} lg={8} className="pr-md-0 pr-md-0">
-        <Image
+        <LazyLoadImage
+          alt={experience.name}
+          effect="blur"
+          src={getImageUrl(experience.banner)}
+          placeholderSrc={getImageUrl(experience.banner)}
+          className="banner-artist-image-mobile"
+        />
+        {/* <Image
           src={getImageUrl(experience.banner)}
           className="banner-artist-image-mobile"
           fluid
-        />
+        /> */}
         {/* <div
           className="banner-artist-image background-image-responsive d-none d-md-block "
           style={{
@@ -420,13 +428,13 @@ const BannerAfterRegister = ({ experience, copyUrl, addToCalendar }) => {
             <div className="banner-congrats__separate-line" />
           </div>
           <div className="banner-congrats__actions d-flex justify-content-center flex-sm-row flex-column align-items-center py-2 py-sm-4">
-            <div
+            {/* <div
               className="banner-congrats__actions__item mb-2 mb-sm-0"
               onClick={() => addToCalendar(experience)}
             >
               <FaIcon name="faCalendarAlt" color={"#fff"} size="lg" />
               {" Add to calendar"}
-            </div>
+            </div> */}
             <div className="banner-congrats__actions__item" onClick={copyUrl}>
               <FaIcon name="faShareAlt" color={"#fff"} size="lg" />
               {" Share this event"}

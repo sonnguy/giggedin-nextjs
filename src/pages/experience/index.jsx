@@ -35,10 +35,10 @@ import {
   redirectUri,
 } from "../../constants/spotifyConstants";
 import { connectSpotify } from "../../api/spotifyApi";
-import { appId } from "../../constants/facebookConstants";
 import hardback from "../../../public/images/Hardback.jpg";
 import ebook from "../../../public/images/Ebook.jpg";
 import audiobook from "../../../public/images/Audiobook.jpg";
+import { buildFbScript } from "../../services/utilsService";
 
 const CampaignDetail = ({ experience }) => {
   const user = useSelector((state) => state.user.user);
@@ -196,18 +196,6 @@ const CampaignDetail = ({ experience }) => {
   };
 
   useEffect(() => {
-    // const ReactPixel = require("react-facebook-pixel").default;
-    // ReactPixel.init(
-    //   "1698442107043541",
-    //   {},
-    //   {
-    //     autoConfig: true,
-    //     debug: false,
-    //   }
-    // );
-    // ReactPixel.track("ViewContent", { page: "Exp_Page" });
-    // Mixpanel.pageView("View_Exp_Page");
-    // GA.pageView();
     getCampaignSuccessFn(experience);
     if (experience.id) {
       const { tabs } = experience;
@@ -221,12 +209,7 @@ const CampaignDetail = ({ experience }) => {
     // scriptGoogle.src = 'https://apis.google.com/js/platform.js';
     // scriptGoogle.async = true;
     // document.body.appendChild(scriptGoogle);
-    const scriptFacebook = document.createElement("script");
-    scriptFacebook.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${appId}`;
-    scriptFacebook.async = true;
-    scriptFacebook.defer = true;
-    scriptFacebook.crossorigin = "anonymous";
-    document.body.appendChild(scriptFacebook);
+    buildFbScript();
   }, []);
 
   useEffect(() => {
@@ -980,7 +963,7 @@ const SpotifyFllwPopup = (props) => {
             </div>
             <div className="fllwr-widget-footer">
               <a
-                href="https://fllw.co"
+                href="https://fllw.co?utm_source=jimmybarnes&utm_medium=competition&utm_campaign=Jimmy"
                 target="_blank"
                 className="fllwr-widget-footer-text"
               >

@@ -23,6 +23,7 @@ import {
 import FBLoginButton from "../button/FBLoginButton";
 import { appId } from "../../constants/facebookConstants";
 import Link from 'next/link';
+import { buildFbScript } from "../../services/utilsService";
 
 class LoginForm extends React.Component {
   state = {
@@ -43,12 +44,7 @@ class LoginForm extends React.Component {
     },
   };
   componentDidMount() {
-    const scriptFacebook = document.createElement("script");
-    scriptFacebook.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${appId}`;
-    scriptFacebook.async = true;
-    scriptFacebook.defer = true;
-    scriptFacebook.crossorigin = "anonymous";
-    document.body.appendChild(scriptFacebook);
+    buildFbScript();
   }
 
   goToRegister = () => {

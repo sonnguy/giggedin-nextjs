@@ -5,17 +5,20 @@ import { getCampaignsApi } from "../src/api/campaignApi";
 const ExperiencesPage = (props) => {
   return (
     <Layout>
-      <Experiences {...props}/>
+      <Experiences {...props} />
     </Layout>
   );
 };
 
-ExperiencesPage.getInitialProps = async () => {
+export async function getStaticProps() {
   const res = await getCampaignsApi();
   const experiences = res.data.campaigns;
   return {
-    experiences
-  };
-};
+    props: {
+      experiences,
+    }
+  }
+}
+
 
 export default ExperiencesPage;

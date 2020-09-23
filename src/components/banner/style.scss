@@ -77,7 +77,7 @@
         font-size: 12px;
       }
     }
-    .event-start-in-text{
+    .event-start-in-text {
       font-size: 25px;
       @media (max-width: 500px) {
         font-size: 20px;
@@ -203,6 +203,9 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    &__block {
+      flex: 1;
+    }
   }
 
   .banner-home-text {
@@ -230,6 +233,18 @@
     font-weight: 600;
     @media (max-width: 678px) {
       font-size: 20px;
+    }
+  }
+
+  .banner-home-sub-title-small-text {
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.28;
+    letter-spacing: normal;
+    font-weight: 600;
+    font-style: italic;
+    @media (max-width: 678px) {
+      font-size: 16px;
     }
   }
 

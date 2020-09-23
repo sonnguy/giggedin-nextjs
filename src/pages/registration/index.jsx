@@ -6,20 +6,12 @@ import Router from "next/router";
 import { claimEvent } from "../../api/checkoutApi";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { appId } from "../../constants/facebookConstants";
+import { buildFbScript } from "../../services/utilsService";
 import { spotifyFollowingApi } from "../../api/artistApi";
+
 class Registration extends React.Component {
   componentDidMount() {
-    const scriptFacebook = document.createElement("script");
-    scriptFacebook.src = `https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=${appId}`;
-    scriptFacebook.async = true;
-    scriptFacebook.defer = true;
-    scriptFacebook.crossorigin = "anonymous";
-    document.body.appendChild(scriptFacebook);
-    console.log(
-      'const expId = this.props.router.asPath.split("=")[1];',
-      this.props.router.asPath
-    );
+    buildFbScript();
   }
 
   goBack = () => {

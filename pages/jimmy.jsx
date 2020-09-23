@@ -3,7 +3,6 @@ import Layout from "./../src/components/layout";
 import CampaignDetail from "./../src/pages/experience";
 import { getCampaignApi } from "./../src/api/campaignApi";
 import { getImageUrl } from "./../src/services/imageService";
-import { getSlugName } from "./../src/services/utilsService";
 
 const JimmyPage = (props) => {
   return (
@@ -16,7 +15,6 @@ const JimmyPage = (props) => {
 export async function getStaticProps() {
   const res = await getCampaignApi(4);
   const experience = res.data.campaign;
-  const slug = getSlugName(experience.name);
   return {
     props: {
       header: {
@@ -24,7 +22,7 @@ export async function getStaticProps() {
         description: experience.description,
         keywords: `${experience.name}: ${experience.headline}`,
         siteName: "GiggedIn",
-        url: `${process.env.REACT_APP_HOST_URL}/experience/${slug}-${experience.id}`,
+        url: `${process.env.REACT_APP_HOST_URL}/jimmy`,
         image: getImageUrl(experience.banner),
       },
       experience,
