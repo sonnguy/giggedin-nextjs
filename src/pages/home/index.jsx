@@ -19,6 +19,7 @@ import bgImage from '../../../public/images/home-artist-image.jpg';
 import Router from 'next/router';
 import FaIcon from '../../components/fontAwesomeIcon';
 import WingLine from '../../components/common/wingLine';
+import { Helmet } from 'react-helmet';
 
 const Home = ({ experience }) => {
 
@@ -36,6 +37,10 @@ const Home = ({ experience }) => {
     return (
         experience && (
             <div className="home-page">
+                <Helmet>
+                    <script type="text/javascript" src="https://app.fllw.co/widget.js" id="Fllwco-Widget-Script"
+                        data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'spotify','campaignId': 4}}"></script>
+                </Helmet>
                 <div className="h-auto background-image-responsive" style={{
                     backgroundImage: `url('${bgImage}')`
                 }}>
