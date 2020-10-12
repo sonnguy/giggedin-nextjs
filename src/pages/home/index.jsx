@@ -115,7 +115,7 @@ const Home = ({ experience }) => {
                         </Row>
                     </Container>
                 </div>
-                <div className="home-page__intro">
+                {/* <div className="home-page__intro">
                     <Container className="py-5">
                         <Row>
                             <Col xs={12} sm={12} md={6} className="home-page__intro__text">
@@ -264,7 +264,7 @@ const Home = ({ experience }) => {
                             </Col>
                         </Row>
                     </Container>
-                </div>
+                </div> */}
 
                 <div className="mt-5 pt-5">
                     <Container>
