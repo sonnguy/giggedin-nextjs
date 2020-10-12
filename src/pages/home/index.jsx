@@ -39,7 +39,7 @@ const Home = ({ experience }) => {
             <div className="home-page">
                 <Helmet>
                     <script type="text/javascript" src="https://app.fllw.co/widget.js" id="Fllwco-Widget-Script"
-                        data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'spotify','campaignId': 4}}"></script>
+                        data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'youtube','campaignId': 4}}"></script>
                 </Helmet>
                 <div className="h-auto background-image-responsive" style={{
                     backgroundImage: `url('${bgImage}')`

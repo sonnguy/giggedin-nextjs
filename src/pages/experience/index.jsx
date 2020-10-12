@@ -39,6 +39,7 @@ import hardback from "../../../public/images/Hardback.jpg";
 import ebook from "../../../public/images/Ebook.jpg";
 import audiobook from "../../../public/images/Audiobook.jpg";
 import { buildFbScript } from "../../services/utilsService";
+import { Helmet } from "react-helmet";
 
 const CampaignDetail = ({ experience }) => {
   const user = useSelector((state) => state.user.user);
@@ -234,6 +235,10 @@ const CampaignDetail = ({ experience }) => {
 
   return (
     <>
+      <Helmet>
+        <script type="text/javascript" src="https://app.fllw.co/widget.js" id="Fllwco-Widget-Script"
+          data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'spotify','campaignId': 4}}"></script>
+      </Helmet>
       {!isPaid && (
         <Sticky top={0} innerZ={999}>
           <div className="sticky-cta-bar">
