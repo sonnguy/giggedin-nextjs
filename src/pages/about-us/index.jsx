@@ -12,7 +12,7 @@ const AboutUs = ({ router }) => {
     return (
         <div className="about-us-page">
             <Helmet>
-                <script type="text/javascript" src="https://app.fllw.co/widget.js" id="Fllwco-Widget-Script"
+                <script type="text/javascript" src="http://localhost:3000/widget.js" id="Fllwco-Widget-Script"
                     data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'facebook','campaignId': 4}}"></script>
             </Helmet>
             <Container>
