@@ -5,11 +5,16 @@ import './style.scss';
 import { withRouter } from 'next/router';
 import bodyImage from '../../../public/images/about-us.jpg';
 import FaIcon from '../../components/fontAwesomeIcon';
+import { Helmet } from 'react-helmet';
 
 const AboutUs = ({ router }) => {
     const { slug } = router.query;
     return (
         <div className="about-us-page">
+            <Helmet>
+                <script type="text/javascript" src="https://app.fllw.co/widget.js" id="Fllwco-Widget-Script"
+                    data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'facebook','campaignId': 4}}"></script>
+            </Helmet>
             <Container>
                 <div className="py-4">
                     {
