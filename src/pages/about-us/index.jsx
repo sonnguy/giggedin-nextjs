@@ -13,7 +13,7 @@ const AboutUs = ({ router }) => {
         <div className="about-us-page">
             <Helmet>
                 <script type="text/javascript" src="https://app.fllw.co/widget.js" id="Fllwco-Widget-Script"
-                    data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'facebook','campaignId': 4}}"></script>
+                    data-config="{'name': 'fllwr', 'config': {'targetElementId': 'fllw-root','type' : 'facebook','campaignId': 10}}"></script>
             </Helmet>
             <Container>
                 <div className="py-4">
